@@ -1,0 +1,8 @@
+pyzmq
+PyYAML
+pycrypto
+msgpack-python
+jinja2
+psutil
+futures
+tornado
