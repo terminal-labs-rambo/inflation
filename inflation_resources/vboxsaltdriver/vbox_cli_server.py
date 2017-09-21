@@ -52,7 +52,6 @@ def get_vm_names():
 
 def acceptable_command(cmd):
     cmd_list = cmd.split(" ")
-    print(cmd)
     if len(cmd_list) == 3:
         if cmd_list[0] == "vboxmanage" and cmd_list[1] == "list" and cmd_list[2] == "vms":
             return ["vboxmanage", "list", "vms"]
@@ -124,7 +123,6 @@ def acceptable_command(cmd):
 
 @app.route("/", methods=["POST"])
 def vbox_web_cli():
-    print('got a call')
     if request.json:
         pass
     else:
@@ -153,5 +151,4 @@ def vbox_web_cli():
     return cli_output
 
 if __name__ == "__main__":
-    print('###########')
     app.run()

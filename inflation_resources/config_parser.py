@@ -35,8 +35,6 @@ def main(args=None):
     config = yaml.load(vendor_section)
     with open(main_dir  + '/.tmp/vendor', 'w') as outfile:
         outfile.write(config['vendor'])
-    print "done"
-    print "#####"
 
     print "cloning minion repos"
     minion_repos_section = re.compile('<start repos>(.*?)</end repos>', re.DOTALL).findall(data)[0]
@@ -50,8 +48,6 @@ def main(args=None):
             cmd = 'hg clone ' + repo + ' [name for name in os.listdir(a_dir)/' + repo_name
         proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         print proc.communicate()[0]
-    print "done"
-    print "#####"
 
     print "copying over salt state files from minion repos"
     homedir = os.path.expanduser('~')
@@ -61,15 +57,11 @@ def main(args=None):
         distutils.dir_util.copy_tree(src, dist)
         if os.path.isfile('.tmp/imported_salt_states/top.sls'):
             os.remove('.tmp/imported_salt_states/top.sls')
-    print "done"
-    print "#####"
 
     print 'writing top file'
     base_section = re.compile('<start top>(.*?)</end top>', re.DOTALL).findall(data)[0]
     with open(script_dir + '/../.tmp/imported_salt_states/top.sls', 'w') as outfile:
         outfile.write(base_section)
-    print "done"
-    print "#####"
 
 if __name__ == "__main__":
     main()
