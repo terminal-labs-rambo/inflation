@@ -1,6 +1,14 @@
-ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
-VER=$(lsb_release -sr)
-OS=$(lsb_release -si)
+
+uname | grep 'Darwin' &> /dev/null
+if ! [ $? == 0 ]; then
+  ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
+  VER=$(lsb_release -sr)
+  OS=$(lsb_release -si)
+else
+  ARCH="64bit"
+  VER=$(defaults read loginwindow SystemVersionStampAsString)
+  OS="osx"
+fi
 #if ! [ $OS == "Ubuntu"  ]
 #then
 #  echo "This program only works on Ubuntu 16 (or newer), existing now"
