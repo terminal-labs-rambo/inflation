@@ -206,6 +206,12 @@ place_internal_cli_script:
     - name: cp -r /vagrant/inflation_resources/internal_cli.py /home/saltmaster/salt_controlplane/internal_cli.py
     - cwd: /home/saltmaster
 
+install_extra_system_pip_deps:
+  cmd.run:
+    - name: ./bin/pip install requests==2.4.2
+    - cwd: /home/saltmaster/salt_venv
+    - runas: saltmaster
+
 install_internal_cli_deps:
   cmd.run:
     - name: ./bin/pip install click bash

@@ -6,6 +6,7 @@ setup_basebox:
       - python-pip
       - python-setuptools
       - python-virtualenv
+      - python-requests
       - python3
       - python3-pip
       - ntp
