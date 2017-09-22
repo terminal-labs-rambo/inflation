@@ -51,6 +51,9 @@ if ! [ $? == 0 ]; then
   vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
 fi
 
+echo "clearing build dir"
+rm -rf build
+
 echo "clearing tmp dir"
 rm -rf .tmp
 

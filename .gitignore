@@ -13,10 +13,12 @@ syntax: glob
 *.pub
 
 ## paths
+build
 srv/salt/ssh_keys/
 env.sh
 digitalocean.env.sh
 aws.env.sh
 .tmp/
+.downloads
 keys/
 auth/tokens/*

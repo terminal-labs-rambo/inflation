@@ -5,7 +5,7 @@ source inflation_resources/scripts/header.sh
 vendor=$(<.tmp/vendor)
 
 echo "deleting minions"
-TARGET=$vendor vagrant ssh -c "sudo bash /vagrant/inflation_resources/scripts/delete_minions.sh" --no-color
+TARGET=$vendor vagrant ssh -c "sudo bash /vagrant/inflation_resources/scripts/delete_minions.sh" 2> /dev/null 
 
 echo "clearing salt master"
 TARGET=$vendor vagrant destroy -f --no-color
