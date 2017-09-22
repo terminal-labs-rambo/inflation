@@ -135,5 +135,10 @@ saltmaster "*" "state.highstate"
 
 sleep 60s # Waits 60 seconds for services to load. We need more reliable way to deterministically delay this scirpt untill all minoins are back up.
 
-echo "run keystone state"
-saltmaster "*" "state.sls keystone"
+if [ -f /home/saltmaster/salt_controlplane/etc/salt/keystone.sls ]; then
+  echo "run keystone state"
+  saltmaster "*" "state.sls keystone"
+fi
+
+echo "done"
+echo "cluster is ready"
