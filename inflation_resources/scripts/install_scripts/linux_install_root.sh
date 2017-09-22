@@ -51,8 +51,16 @@ pip install --upgrade pip
 mkdir -p .downloads
 cd .downloads
 
-wget http://download.virtualbox.org/virtualbox/5.1.28/virtualbox-5.1_5.1.28-117968~Ubuntu~xenial_amd64.deb
-dpkg -i virtualbox-5.1_5.1.28-117968~Ubuntu~xenial_amd64.deb
+lsb_release -sr | grep '16.04' &> /dev/null
+if [ $? == 0 ]; then
+  wget http://download.virtualbox.org/virtualbox/5.1.28/virtualbox-5.1_5.1.28-117968~Ubuntu~xenial_amd64.deb
+  dpkg -i virtualbox-5.1_5.1.28-117968~Ubuntu~xenial_amd64.deb
+fi
+lsb_release -sr | grep '17.04' &> /dev/null
+if [ $? == 0 ]; then
+  wget http://download.virtualbox.org/virtualbox/5.1.28/virtualbox-5.1_5.1.28-117968~Ubuntu~zesty_amd64.deb
+  dpkg -i virtualbox-5.1_5.1.28-117968~Ubuntu~zesty_amd64.deb
+fi
 
 wget https://releases.hashicorp.com/vagrant/2.0.0/vagrant_2.0.0_x86_64.deb
 dpkg -i vagrant_2.0.0_x86_64.deb
