@@ -2,11 +2,11 @@
 
 apt-get install --yes --quiet ca-certificates
 apt-get update
-apt-get upgrade
+apt-get upgrade --yes
 
 apt install --yes --quiet ca-certificates
 apt update
-apt upgrade
+apt upgrade --yes
 
 apt-get install --yes mercurial
 apt-get install --yes git
