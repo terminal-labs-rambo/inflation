@@ -12,12 +12,36 @@ github.com:
     - fingerprint_hash_type: md5
     - timeout: 90
 
+# clone_salt:
+#    git.latest:
+#      - name: git@github.com:saltstack/salt.git
+#      - target: /home/saltmaster/salt_src
+#      - branch: 2017.7.1
+#      - user: root
+
 clone_salt:
-   git.latest:
-     - name: git@github.com:saltstack/salt.git
-     - target: /home/saltmaster/salt_src
-     - branch: 2017.7.2
-     - user: root
+  cmd.run:
+    - name: git clone git@github.com:saltstack/salt.git salt_src
+    - cwd: /home/saltmaster
+    - runas: root
+
+set_salt_upstream:
+  cmd.run:
+    - name: git remote add upstream https://github.com/saltstack/salt
+    - cwd: /home/saltmaster/salt_src
+    - runas: root
+
+get_salt_tags:
+  cmd.run:
+    - name: git fetch --tags upstream
+    - cwd: /home/saltmaster/salt_src
+    - runas: root
+
+checkout_salt_branch:
+  cmd.run:
+    - name: git checkout v2017.7.1
+    - cwd: /home/saltmaster/salt_src
+    - runas: root
 
 /home/saltmaster/salt_src:
   file.directory:
