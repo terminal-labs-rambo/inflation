@@ -5,17 +5,18 @@ install_salt_deps:
       - python-dev
       - python-m2crypto
 
-bitbucket.org:
+github.com:
   ssh_known_hosts:
     - present
-    - fingerprint: {{ grains['fingerprint'] }}
+    - fingerprint: 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
     - fingerprint_hash_type: md5
     - timeout: 90
 
 clone_salt:
    git.latest:
-     - name: git@bitbucket.org:terminal_labs/saltstack.git
+     - name: git@github.com:saltstack/salt.git
      - target: /home/saltmaster/salt_src
+     - branch: 2017.7.2
      - user: root
 
 /home/saltmaster/salt_src:
