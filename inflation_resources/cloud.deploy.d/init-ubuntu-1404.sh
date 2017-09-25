@@ -1,6 +1,5 @@
 #start of tl custom init code
-## human format link https://github.com/terminal-labs/package-sources/tree/master/ubuntu-1604/official
-wget -O /etc/apt/sources.list https://raw.githubusercontent.com/terminal-labs/apt-sources/master/ubuntu-1604/official/sources.list
+wget -O /etc/apt/sources.list https://raw.githubusercontent.com/terminal-labs/apt-sources/master/ubuntu-1404/official/sources.list
 #end of tl custom init code
 #!/bin/sh -
 #======================================================================================================================
