@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     provider.customize ['modifyvm', :id, '--nictype2', 'virtio']
     provider.memory = 8192
   end
-
+  config.vm.hostname = VM_NAME
   config.ssh.username = "vagrant"
   config.ssh.forward_agent = true
 
