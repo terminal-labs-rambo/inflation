@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 cd /home/saltmaster/salt_venv
-echo "stoping bootstrap salt minion and salt master"
-ps aux | grep -ie salt-master | grep -v grep | awk '{print $2}' | xargs kill -9
-ps aux | grep -ie salt-minion | grep -v grep | awk '{print $2}' | xargs kill -9
 
 function saltmaster { # $1 = location, e.g. 'master' or '*', $2 = command
     start="su saltmaster -c \"cd /home/saltmaster; source salt_venv/bin/activate; python /home/saltmaster/salt_src/scripts/salt '"
@@ -12,8 +9,26 @@ function saltmaster { # $1 = location, e.g. 'master' or '*', $2 = command
     eval $command
 }
 
+echo "stoping bootstrap salt minion and salt master"
+
+ps aux | grep -ie salt-minion | grep -v grep | awk '{print "kill -9 " $2}' | sh -x
+echo "waiting for salt-minion (on master node) to fully go down"
+while [[ $(netstat -antp | grep 4505) ]]
+do
+  sleep 1
+  echo "Still waiting for minion to stop"
+done
+
+ps aux | grep -ie salt-master | grep -v grep | awk '{print "kill -9 " $2}' | sh -x
+echo "waiting for salt-master (on master node) to fully go down"
+while [[ $(netstat -antp | grep 4506) ]]
+do
+  sleep 1
+  echo "Still waiting for master to stop"
+done
+
 echo "starting salt master service"
-su saltmaster -c "cd /home/saltmaster; source salt_venv/bin/activate; python /home/saltmaster/salt_src/scripts/salt-master -c /home/saltmaster/salt_controlplane/etc/salt -d"
+su saltmaster -c "cd /home/saltmaster; source salt_venv/bin/activate; /home/saltmaster/salt_venv/bin/python /home/saltmaster/salt_src/scripts/salt-master -c /home/saltmaster/salt_controlplane/etc/salt -d"
 echo "starting salt minion service"
 su saltmaster -c "cd /home/saltmaster; source salt_venv/bin/activate; sudo /home/saltmaster/salt_venv/bin/python /home/saltmaster/salt_src/scripts/salt-minion -c /home/saltmaster/salt_controlplane/etc/salt -d"
 
