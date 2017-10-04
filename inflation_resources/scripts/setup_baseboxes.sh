@@ -4,6 +4,18 @@ cd ~/.inflation/
 git clone git@github.com:terminal-labs/vagrantfiles.git
 cd -
 
+if [[ $(vboxmanage list vms | grep "centos7-512mb") ]]; then
+    echo "centos7-512mb is setup"
+else
+    mkdir -p ~/.inflation/vbox_machine_repos
+    echo "setting up centos7-512mb"
+    cp -r ~/.inflation/vagrantfiles/centos7-512mb ~/.inflation/vbox_machine_repos/centos7-512mb
+    cd ~/.inflation/vbox_machine_repos/centos7-512mb
+    vagrant up --no-color
+    vagrant halt --no-color
+    cd -
+fi
+
 if [[ $(vboxmanage list vms | grep "debian8-512mb") ]]; then
     echo "debian8-512mb is setup"
 else
