@@ -4,194 +4,32 @@ cd ~/.inflation/
 git clone git@github.com:terminal-labs/vagrantfiles.git
 cd -
 
-if [[ $(vboxmanage list vms | grep "centos7-512mb") ]]; then
-    echo "centos7-512mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up centos7-512mb"
-    cp -r ~/.inflation/vagrantfiles/centos7-512mb ~/.inflation/vbox_machine_repos/centos7-512mb
-    cd ~/.inflation/vbox_machine_repos/centos7-512mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "debian8-512mb") ]]; then
-    echo "debian8-512mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up debian8-512mb"
-    cp -r ~/.inflation/vagrantfiles/debian8-512mb ~/.inflation/vbox_machine_repos/debian8-512mb
-    cd ~/.inflation/vbox_machine_repos/debian8-512mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "debian8-1024mb") ]]; then
-    echo "debian8-1024mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up debian8-1024mb"
-    cp -r ~/.inflation/vagrantfiles/debian8-1024mb ~/.inflation/vbox_machine_repos/debian8-1024mb
-    cd ~/.inflation/vbox_machine_repos/debian8-1024mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "debian8-2048mb") ]]; then
-    echo "debian8-2048mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up debian8-2048mb"
-    cp -r ~/.inflation/vagrantfiles/debian8-2048mb ~/.inflation/vbox_machine_repos/debian8-2048mb
-    cd ~/.inflation/vbox_machine_repos/debian8-2048mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "debian8-4096mb") ]]; then
-    echo "debian8-4096mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up debian8-4096mb"
-    cp -r ~/.inflation/vagrantfiles/debian8-4096mb ~/.inflation/vbox_machine_repos/debian8-4096mb
-    cd ~/.inflation/vbox_machine_repos/debian8-4096mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "debian8-8192mb") ]]; then
-    echo "debian8-8192mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up debian8-8192mb"
-    cp -r ~/.inflation/vagrantfiles/debian8-8192mb ~/.inflation/vbox_machine_repos/debian8-8192mb
-    cd ~/.inflation/vbox_machine_repos/debian8-8192mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu14-512mb") ]]; then
-    echo "ubuntu14-512mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu14-512mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu14-512mb ~/.inflation/vbox_machine_repos/ubuntu14-512mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu14-512mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu14-1024mb") ]]; then
-    echo "ubuntu14-1024mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu14-1024mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu14-1024mb ~/.inflation/vbox_machine_repos/ubuntu14-1024mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu14-1024mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu14-2048mb") ]]; then
-    echo "ubuntu14-2048mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu14-2048mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu14-2048mb ~/.inflation/vbox_machine_repos/ubuntu14-2048mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu14-2048mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu14-4096mb") ]]; then
-    echo "ubuntu14-4096mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu14-4096mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu14-4096mb ~/.inflation/vbox_machine_repos/ubuntu14-4096mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu14-4096mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu14-8192mb") ]]; then
-    echo "ubuntu14-8192mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu14-8192mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu14-8192mb ~/.inflation/vbox_machine_repos/ubuntu14-8192mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu14-8192mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu16-512mb") ]]; then
-    echo "ubuntu16-512mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu16-512mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu16-512mb ~/.inflation/vbox_machine_repos/ubuntu16-512mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu16-512mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu16-1024mb") ]]; then
-    echo "ubuntu16-1024mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu16-1024mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu16-1024mb ~/.inflation/vbox_machine_repos/ubuntu16-1024mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu16-1024mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu16-2048mb") ]]; then
-    echo "ubuntu16-2048mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu16-2048mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu16-2048mb ~/.inflation/vbox_machine_repos/ubuntu16-2048mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu16-2048mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu16-4096mb") ]]; then
-    echo "ubuntu16-4096mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu16-4096mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu16-4096mb ~/.inflation/vbox_machine_repos/ubuntu16-4096mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu16-4096mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
-
-if [[ $(vboxmanage list vms | grep "ubuntu16-8192mb") ]]; then
-    echo "ubuntu16-8192mb is setup"
-else
-    mkdir -p ~/.inflation/vbox_machine_repos
-    echo "setting up ubuntu16-8192mb"
-    cp -r ~/.inflation/vagrantfiles/ubuntu16-8192mb ~/.inflation/vbox_machine_repos/ubuntu16-8192mb
-    cd ~/.inflation/vbox_machine_repos/ubuntu16-8192mb
-    vagrant up --no-color
-    vagrant halt --no-color
-    cd -
-fi
+{% for name in [
+  'centos7-512mb',
+  'debian8-512mb',
+  'debian8-1024mb',
+  'debian8-2048mb',
+  'debian8-4096mb',
+  'debian8-8192mb',
+  'ubuntu14-512mb',
+  'ubuntu14-1024mb',
+  'ubuntu14-2048mb',
+  'ubuntu14-4096mb',
+  'ubuntu14-8192mb',
+  'ubuntu16-512mb',
+  'ubuntu16-1024mb',
+  'ubuntu16-2048mb',
+  'ubuntu16-4096mb',
+  'ubuntu16-8192mb' ] %}
+  if [[ $(vboxmanage list vms | grep "{{ name }}") ]]; then
+      echo "{{ name }} is setup"
+  else
+      mkdir -p ~/.inflation/vbox_machine_repos
+      echo "setting up {{ name }}"
+      cp -r ~/.inflation/vagrantfiles/{{ name }} ~/.inflation/vbox_machine_repos/{{ name }}
+      cd ~/.inflation/vbox_machine_repos/{{ name }}
+      vagrant up --no-color
+      vagrant halt --no-color
+      cd -
+  fi
+{% endfor %}
