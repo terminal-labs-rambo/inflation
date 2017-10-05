@@ -5,7 +5,7 @@ require 'getoptlong'
 
 load "vagrant_resources/modules.rb" # for random_tag
 
-Vagrant.require_version ">= 1.9.7"
+Vagrant.require_version ">= 2.0.0"
 
 opts = GetoptLong.new(
   # Native Vagrant options
@@ -47,16 +47,16 @@ end
 target=''
 if (!ENV["TARGET"] and cli_target_opt=='') or ENV["TARGET"] == "virtualbox" or cli_target_opt == "virtualbox"
   target='virtualbox'
-elsif ENV["TARGET"] == "aws" or cli_target_opt == "aws"
-  target='aws'
+elsif ENV["TARGET"] == "ec2" or cli_target_opt == "ec2"
+  target='ec2'
 elsif ENV["TARGET"] == "digitalocean" or cli_target_opt == "digitalocean"
   target='digitalocean'
 end
 
 if target == "virtualbox" # If no param or "virtualbox"
   load File.expand_path("vagrant_resources/vagrant/Vagrantfile.virtualbox")
-elsif target == "aws"
-  load File.expand_path("vagrant_resources/vagrant/Vagrantfile.aws")
+elsif target == "ec2"
+  load File.expand_path("vagrant_resources/vagrant/Vagrantfile.ec2")
 elsif target == "digitalocean"
   load File.expand_path("vagrant_resources/vagrant/Vagrantfile.digitalocean")
 end
