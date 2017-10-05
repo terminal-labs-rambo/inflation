@@ -95,6 +95,9 @@ saltmaster "*" "test.ping"
 echo "getting minions ip addresses"
 saltmaster "*" "network.ip_addrs"
 
+echo "configuring basic cluster nodes"
+saltmaster "*" "state.sls cluster_init"
+
 echo "set reboot round grain - first run"
 saltmaster "*" "grains.setval reboot_round 0"
 
@@ -104,8 +107,8 @@ saltmaster "*" "saltutil.sync_all"
 echo "updateing mine functions on all nodes"
 saltmaster "*" "mine.update"
 
-echo "configuring basic cluster nodes"
-saltmaster "*" "state.sls cluster_init"
+echo "set hostname"
+saltmaster "*" "state.sls cluster_init.set_hostname"
 
 echo "set hostname grain"
 saltmaster "*" "state.sls cluster_init.set_hostname_grain"
