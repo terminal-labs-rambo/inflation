@@ -27,6 +27,7 @@ Vagrant.configure("2") do |config|
     salt.verbose = true
   end
   config.vm.provision "shell", path: "vagrant_resources/provisioners/provisioner_virtualbox.sh", keep_color: true
+  config.vm.provision "shell", inline: "sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK salt-call --local grains.setval domain test.local --log-level info; ", keep_color: true
   config.vm.provision "shell", inline: "sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK salt-call --local grains.setval hostname " + VM_NAME + " --log-level info; ", keep_color: true
   config.vm.provision "shell", inline: "sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK salt-call --local state.highstate --log-level info", keep_color: true
 

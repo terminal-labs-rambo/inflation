@@ -60,6 +60,7 @@ saltmaster "master" "saltutil.sync_modules"
 
 echo "set default grains on master"
 saltmaster "master" "grains.setval primary_role master"
+saltmaster "master" "grains.setval domain test.local"
 saltmaster "master" "grains.setval vm_size 8gb"
 
 raw_public_key=$(cat /var/tmp/universal_cluster_key.pub)
