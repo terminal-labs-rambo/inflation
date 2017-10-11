@@ -7,6 +7,10 @@ bash inflation_resources/scripts/server_scripts/stop_server.sh
 
 {% for name in [
   'centos7-512mb',
+  'centos7-1024mb',
+  'centos7-2048mb',
+  'centos7-4096mb',
+  'centos7-8192mb',
   'debian8-512mb',
   'debian8-1024mb',
   'debian8-2048mb',
