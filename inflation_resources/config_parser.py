@@ -52,7 +52,11 @@ def main(args=None):
     print "copying over salt state files from minion repos"
     homedir = os.path.expanduser('~')
     for repo_dir in os.listdir(homedir + '/.inflation/minion_repos'):
-        src = homedir + '/.inflation/minion_repos/' +  repo_dir + '/salt_resources/states/.'
+        rambo_path = '/'
+        if os.path.isdir(homedir + '/.inflation/minion_repos/' +  repo_dir + '/rambo'):
+            rambo_path = '/rambo/'
+
+        src = homedir + '/.inflation/minion_repos/' +  repo_dir + rambo_path + 'salt_resources/states/.'
         dist = '.tmp/imported_salt_states/'
         distutils.dir_util.copy_tree(src, dist)
         if os.path.isfile('.tmp/imported_salt_states/top.sls'):

@@ -8,4 +8,5 @@ base:
     - network
     - network.cluster
     - users
+    - python
     - salt_master

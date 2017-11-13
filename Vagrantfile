@@ -5,7 +5,7 @@ require 'getoptlong'
 
 load "vagrant_resources/modules.rb" # for random_tag
 
-Vagrant.require_version ">= 2.0.0"
+Vagrant.require_version ">= 1.9.7"
 
 opts = GetoptLong.new(
   # Native Vagrant options

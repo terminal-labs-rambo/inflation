@@ -1,10 +1,3 @@
-install_salt_deps:
-  pkg.installed:
-    - pkgs:
-      - python-software-properties
-      - python-dev
-      - python-m2crypto
-
 github.com:
   ssh_known_hosts:
     - present
