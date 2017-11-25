@@ -8,6 +8,8 @@ mkdir -p .tmp
 mkdir -p auth/keys
 mkdir -p auth/tokens
 
+rm -rf .tmp/*
+
 echo "loading ssh key into ssh-agent"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
