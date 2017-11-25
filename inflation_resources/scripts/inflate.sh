@@ -4,6 +4,11 @@ source inflation_resources/scripts/header.sh
 
 source $HOME/.inflation/venv/bin/activate
 
+DIR=.tmp
+if [ -d "$DIR" ]; then
+    rm -rf "$DIR"
+fi
+
 mkdir -p .tmp
 mkdir -p auth/keys
 mkdir -p auth/tokens
