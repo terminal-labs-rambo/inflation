@@ -88,6 +88,12 @@ then
   sed -i -e 's~{{ personal_access_token }}~'"$personal_access_token"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
 fi
 
+lastpass_username=$(cat /vagrant/auth/lastpass/username)
+sed -i -e 's~{{ lastpass_username }}~'"$lastpass_username"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
+
+lastpass_password=$(cat /vagrant/auth/lastpass/password)
+sed -i -e 's~{{ lastpass_password }}~'"$lastpass_password"'~g' /home/saltmaster/salt_controlplane/etc/salt/cloud.providers
+
 bash /vagrant/inflation_resources/scripts/spawn_minions.sh
 
 echo "pinging minions"

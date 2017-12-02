@@ -20,6 +20,8 @@ digitalocean.env.sh
 aws.env.sh
 .tmp/
 .downloads
+.rambo-tmp
 keys/
+auth/*
 auth/tokens/*
 /inflation_resources/compiled_scripts
