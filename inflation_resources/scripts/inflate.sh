@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+ #!/usr/bin/env bash
 
 source inflation_resources/scripts/header.sh
 
@@ -9,6 +9,7 @@ mkdir -p auth/keys
 mkdir -p auth/tokens
 
 rm -rf .tmp/*
+rm -rf ~/.inflation/minion_repos/*
 
 echo "loading ssh key into ssh-agent"
 eval "$(ssh-agent -s)"
