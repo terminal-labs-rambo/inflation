@@ -31,6 +31,24 @@ Vagrant.configure("2") do |config|
     salt.bootstrap_options = "-P"
     salt.verbose = true
   end
+
+  config.vm.network :forwarded_port,
+    :guest => 8080,
+    :host => 8080,
+    auto_correct: true
+  config.vm.network :forwarded_port,
+    :guest => 8081,
+    :host => 8081,
+    auto_correct: true
+  config.vm.network :forwarded_port,
+    :guest => 8082,
+    :host => 8082,
+    auto_correct: true
+  config.vm.network :forwarded_port,
+    :guest => 8083,
+    :host => 8083,
+    auto_correct: true
+
   config.vm.provision "shell", path: "vagrant_resources/provisioners/provisioner_virtualbox.sh", keep_color: true
   config.vm.provision "shell", inline: "sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK salt-call --local grains.setval domain test.local --log-level info; ", keep_color: true
   config.vm.provision "shell", inline: "sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK salt-call --local grains.setval hostname " + VM_NAME + " --log-level info; ", keep_color: true
