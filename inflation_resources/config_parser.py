@@ -18,7 +18,7 @@ def main(args=None):
     file_obj = open(sys.argv[1], 'rb')
     data = file_obj.read()
 
-    print 'writing salt-cloud files'
+    print('writing salt-cloud files')
     providers_section = re.compile('<start providers>(.*?)</end providers>', re.DOTALL).findall(data)[0]
     with open(main_dir + '/.tmp/cloud.providers', 'w') as outfile:
         outfile.write(providers_section)
@@ -36,7 +36,7 @@ def main(args=None):
     with open(main_dir  + '/.tmp/vendor', 'w') as outfile:
         outfile.write(config['vendor'])
 
-    print "cloning minion repos"
+    print("cloning minion repos")
     minion_repos_section = re.compile('<start repos>(.*?)</end repos>', re.DOTALL).findall(data)[0]
     config = yaml.load(minion_repos_section)
     for repo in config['minion_repos']:
@@ -49,7 +49,7 @@ def main(args=None):
         proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         print proc.communicate()[0]
 
-    print "copying over salt state files from minion repos"
+    print("copying over salt state files from minion repos")
     homedir = os.path.expanduser('~')
     for repo_dir in os.listdir(homedir + '/.inflation/minion_repos'):
         rambo_path = '/'
@@ -62,7 +62,7 @@ def main(args=None):
         if os.path.isfile('.tmp/imported_salt_states/top.sls'):
             os.remove('.tmp/imported_salt_states/top.sls')
 
-    print 'writing top file'
+    print('writing top file')
     base_section = re.compile('<start top>(.*?)</end top>', re.DOTALL).findall(data)[0]
     with open(script_dir + '/../.tmp/imported_salt_states/top.sls', 'w') as outfile:
         outfile.write(base_section)
