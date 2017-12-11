@@ -59,6 +59,7 @@ echo "syncing custom modules on master"
 saltmaster "master" "saltutil.sync_modules"
 
 echo "set default grains on master"
+saltmaster "master" "grains.setval deescalated_user vagrant"
 saltmaster "master" "grains.setval primary_role master"
 saltmaster "master" "grains.setval domain test.local"
 saltmaster "master" "grains.setval vm_size 8gb"
