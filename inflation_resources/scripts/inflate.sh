@@ -10,6 +10,7 @@ mkdir -p auth/tokens
 
 rm -rf .tmp/*
 rm -rf ~/.inflation/minion_repos/*
+rm -rf ~/.inflation/minion_repos/.DS_Store
 
 echo "loading ssh key into ssh-agent"
 eval "$(ssh-agent -s)"
