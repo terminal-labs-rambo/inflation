@@ -6,13 +6,11 @@ id: master
 
 file_roots:
   base:
-    - /vagrant/salt_resources/states
+    - /vagrant/saltstack/states
 
 grains:
   roles:
     - master
-  salt_cloud_provisioner: virtualbox
-    
   user_home_dir: /home/vagrant
   user: vagrant
   group: vagrant

@@ -108,13 +108,13 @@ place_deploy_script_files:
 
 place_modules_files:
   cmd.run:
-    - name: cp -r /vagrant/salt_resources/modules/. /home/saltmaster/salt_controlplane/etc/salt/_modules
+    - name: cp -r /vagrant/saltstack/modules/. /home/saltmaster/salt_controlplane/etc/salt/_modules
     - cwd: /home/saltmaster
     - runas: saltmaster
 
 place_pillar_files:
   cmd.run:
-    - name: cp -r /vagrant/salt_resources/pillars/. /home/saltmaster/salt_controlplane/etc/pillar
+    - name: cp -r /vagrant/saltstack/pillars/. /home/saltmaster/salt_controlplane/etc/pillar
     - cwd: /home/saltmaster
     - runas: saltmaster
 
