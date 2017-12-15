@@ -2,6 +2,8 @@
 
 mkdir -p $HOME/.inflation
 
+kill `lsof -t -i:5000`
+
 if [[ $(virtualenv | grep  "You must provide a DEST_DIR") ]]; then
     if [ ! -d "$HOME/.inflation/venv" ]; then
         echo "creating virtualenv"
