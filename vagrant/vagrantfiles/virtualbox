@@ -33,6 +33,10 @@ Vagrant.configure("2") do |config|
     :guest => 8083,
     :host => 8083,
     auto_correct: true
+  config.vm.network :forwarded_port,
+    :guest => 8888,
+    :host => 8888,
+    auto_correct: true
   config.vm.network :private_network,
     ip: "172.28.128.128"
 end
