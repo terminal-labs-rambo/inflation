@@ -3,7 +3,7 @@
 vendor=$(<.tmp/vendor)
 
 echo "starting salt master node"
-rambo up
+rambo up -o ubuntu-1604
 echo "master node is up"
 
 echo "initilising cluster"
