@@ -6,7 +6,7 @@ from salt.utils.timeout import wait_for
 import salt.config as config
 import salt.utils.cloud as cloud
 
-from salt.utils.virtualbox import (
+from salt.utils.inflation import (
     vb_get_vm_list,
     vb_get_vm_exists,
     vb_get_vm_address,
@@ -76,7 +76,7 @@ def create(vm_info):
         # Check for required profile parameters before sending any API calls.
         if vm_info['profile'] and config.is_profile_configured(
             __opts__,
-            __active_provider_name__ or 'virtualbox',
+            __active_provider_name__ or 'inflation',
             vm_info['profile']
         ) is False:
             return False

@@ -197,6 +197,14 @@ patch_saltcloud_inflation:
     - cwd: /home/saltmaster
     - runas: saltmaster
 
+patch_inflation_driver_config:
+  file.managed:
+    - name: /home/saltmaster/inflation_driver_config.json
+    - source: salt://salt_master/inflation_driver_config.json
+    - template: jinja
+    - user: saltmaster
+    - group: saltmaster
+
 create_keys_dir:
   file.directory:
     - name: /home/saltmaster/salt_controlplane/keys

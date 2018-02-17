@@ -5,10 +5,10 @@ from salt.utils.timeout import wait_for
 
 log = logging.getLogger(__name__)
 
-import vboxsaltdriver
+import inflationsaltdriver
 
 def vb_get_vm_list():
-    machine_name_list_raw = vboxsaltdriver.list_vms()
+    machine_name_list_raw = inflationsaltdriver.list_vms()
     vms = machine_name_list_raw.split("\n")
 
     machine_name_list = []
@@ -23,7 +23,7 @@ def vb_get_vm_list():
 
 
 def vb_stop_vm(name):
-    machine_name_list_raw = vboxsaltdriver.list_running_vms()
+    machine_name_list_raw = inflationsaltdriver.list_running_vms()
     vms = machine_name_list_raw.split("\n")
 
     machine_name_list = []
@@ -32,17 +32,17 @@ def vb_stop_vm(name):
 
     if name in machine_name_list:
         log.info("Stopping machine %s", name)
-        vboxsaltdriver.stop_vm(name)
+        inflationsaltdriver.stop_vm(name)
 
 
 def vb_start_vm(name):
     log.info("Starting machine %s", name)
-    vboxsaltdriver.start_vm(name)
+    inflationsaltdriver.start_vm(name)
 
 
 def vb_destroy_vm(name):
     log.info("Destroying machine %s", name)
-    vboxsaltdriver.delete_vm(name)
+    inflationsaltdriver.delete_vm(name)
 
 
 def vb_get_vm_exists(name):
@@ -55,12 +55,12 @@ def vb_get_vm_exists(name):
 
 def vb_clone_vm(name, clone_from):
     log.info("Clone virtualbox machine %s from %s", name, clone_from)
-    vboxsaltdriver.clone_vm(name, clone_from)
+    inflationsaltdriver.clone_vm(name, clone_from)
 
 
 def vb_get_vm_address(name=None):
     log.info("getting virtualbox machine %s address", name)
-    results = vboxsaltdriver.get_vm_address(name)
+    results = inflationsaltdriver.get_vm_address(name)
     lines = results.split("\n")
     for line in lines:
         if "Name: /VirtualBox/GuestInfo/Net/1/V4/IP" in line:
