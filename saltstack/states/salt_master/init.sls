@@ -5,13 +5,6 @@ github.com:
     - fingerprint_hash_type: md5
     - timeout: 90
 
-# clone_salt:
-#    git.latest:
-#      - name: git@github.com:saltstack/salt.git
-#      - target: /home/saltmaster/salt_src
-#      - branch: 2017.7.1
-#      - user: root
-
 clone_salt:
   cmd.run:
     - name: git clone git@github.com:saltstack/salt.git salt_src
@@ -186,6 +179,24 @@ patch_saltcloud:
     - cwd: /home/saltmaster
     - runas: saltmaster
 
+place_salt_cloud_patch_dir_inflation:
+  cmd.run:
+    - name: cp -r /vagrant/inflation_resources/inflationsaltdriver /home/saltmaster/inflationsaltdriver_src
+    - cwd: /home/saltmaster
+    - runas: saltmaster
+
+install_salt_cloud_driver_inflation:
+  cmd.run:
+    - name: ./bin/pip install -e ../inflationsaltdriver_src
+    - cwd: /home/saltmaster/salt_venv
+    - runas: saltmaster
+
+patch_saltcloud_inflation:
+  cmd.run:
+    - name: bash /home/saltmaster/inflationsaltdriver_src/patch.sh
+    - cwd: /home/saltmaster
+    - runas: saltmaster
+
 create_keys_dir:
   file.directory:
     - name: /home/saltmaster/salt_controlplane/keys
@@ -223,12 +234,6 @@ place_internal_cli_script:
   cmd.run:
     - name: cp -r /vagrant/inflation_resources/internal_cli.py /home/saltmaster/salt_controlplane/internal_cli.py
     - cwd: /home/saltmaster
-
-#install_extra_system_pip_deps:
-#  cmd.run:
-#    - name: ./bin/pip install requests==2.4.2
-#    - cwd: /home/saltmaster/salt_venv
-#    - runas: saltmaster
 
 install_internal_cli_deps:
   cmd.run:

@@ -20,7 +20,7 @@ from salt.utils.virtualbox import (
 log = logging.getLogger(__name__)
 
 # The name salt will identify the lib by
-__virtualname__ = 'virtualbox'
+__virtualname__ = 'inflation'
 
 def __virtual__():
     '''
@@ -45,6 +45,7 @@ def get_configured_provider():
     configured = config.is_provider_configured(
         __opts__,
         __active_provider_name__ or __virtualname__,
+        ('ssh_username',)  # keys we need from the provider configuration
     )
     return configured
 
@@ -197,7 +198,6 @@ def list_nodes(kwargs=None, call=None):
     attributes = [
         "id",
         "image",
-        "size",
         "state",
         "private_ips",
         "public_ips",
