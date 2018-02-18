@@ -23,6 +23,7 @@ aws.env.sh
 .rambo-tmp
 keys/
 auth/*
+*/auth
 auth/tokens/*
 *.egg-info
 *__pycache__*

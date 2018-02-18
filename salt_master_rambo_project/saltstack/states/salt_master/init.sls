@@ -163,7 +163,7 @@ place_cloud_driver_keys:
 
 place_salt_cloud_patch_dir:
   cmd.run:
-    - name: cp -r /vagrant/inflation_resources/vboxsaltdriver /home/saltmaster/vboxsaltdriver_src
+    - name: cp -r /vagrant/saltstack/states/salt_master/drivers/vboxsaltdriver /home/saltmaster/vboxsaltdriver_src
     - cwd: /home/saltmaster
     - runas: saltmaster
 
@@ -181,7 +181,7 @@ patch_saltcloud:
 
 place_salt_cloud_patch_dir_inflation:
   cmd.run:
-    - name: cp -r /vagrant/inflation_resources/inflationsaltdriver /home/saltmaster/inflationsaltdriver_src
+    - name: cp -r /vagrant/saltstack/states/salt_master/drivers/inflationsaltdriver /home/saltmaster/inflationsaltdriver_src
     - cwd: /home/saltmaster
     - runas: saltmaster
 
@@ -229,18 +229,18 @@ place_pub_ssh_key_for_universal_login:
 
 place_bash_aliases_for_saltmaster:
   cmd.run:
-    - name: cp -r /vagrant/inflation_resources/bash_aliases/saltmaster.sh /home/saltmaster/.bash_aliases
+    - name: cp -r /vagrant/saltstack/states/salt_master/bash_aliases/saltmaster.sh /home/saltmaster/.bash_aliases
     - cwd: /home/saltmaster
     - runas: saltmaster
 
 place_bash_aliases_for_vagrant:
   cmd.run:
-    - name: cp -r /vagrant/inflation_resources/bash_aliases/vagrant.sh /home/vagrant/.bash_aliases
+    - name: cp -r /vagrant/saltstack/states/salt_master/bash_aliases/vagrant.sh /home/vagrant/.bash_aliases
     - cwd: /home/saltmaster
 
 place_internal_cli_script:
   cmd.run:
-    - name: cp -r /vagrant/inflation_resources/internal_cli.py /home/saltmaster/salt_controlplane/internal_cli.py
+    - name: cp -r /vagrant/saltstack/states/salt_master/utils/internal_cli.py /home/saltmaster/salt_controlplane/internal_cli.py
     - cwd: /home/saltmaster
 
 install_internal_cli_deps:
