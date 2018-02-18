@@ -24,4 +24,6 @@ aws.env.sh
 keys/
 auth/*
 auth/tokens/*
+*.egg-info
+*__pycache__*
 /inflation_resources/compiled_scripts

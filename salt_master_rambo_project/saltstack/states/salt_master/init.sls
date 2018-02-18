@@ -7,7 +7,7 @@ github.com:
 
 clone_salt:
   cmd.run:
-    - name: git clone git@github.com:saltstack/salt.git salt_src
+    - name: git clone https://github.com/saltstack/salt.git salt_src
     - cwd: /home/saltmaster
     - runas: root
 
@@ -89,13 +89,13 @@ create_modules_dir:
 
 place_cluster_files:
   cmd.run:
-    - name: cp -r /vagrant/inflation_resources/cluster_init /home/saltmaster/salt_controlplane/etc/salt
+    - name: cp -r /vagrant/saltstack/states/salt_master/cluster_init /home/saltmaster/salt_controlplane/etc/salt
     - cwd: /home/saltmaster
     - runas: saltmaster
 
 place_deploy_script_files:
   cmd.run:
-    - name: cp -r /vagrant/inflation_resources/cloud.deploy.d /home/saltmaster/salt_controlplane/etc/salt
+    - name: cp -r /vagrant/saltstack/states/salt_master/cloud.deploy.d /home/saltmaster/salt_controlplane/etc/salt
     - cwd: /home/saltmaster
     - runas: saltmaster
 
