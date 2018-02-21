@@ -1,8 +1,5 @@
 import subprocess
 
-def test():
-    return 'custom modules test looks good'
-
 def get_primary_address():
     data = subprocess.check_output(['ip', 'addr'])
     lines = data.split('\n')
