@@ -145,6 +145,9 @@ saltmaster "master" "state.sls cluster_init.prepare_known_hosts_for_distribution
 echo "distribute known_hosts file"
 saltmaster "*" "state.sls cluster_init.distribute_known_hosts_file"
 
+echo "post build cleaning"
+saltmaster "*" "state.sls cluster_init.clean"
+
 echo "run highstate - first run"
 saltmaster "*" "state.highstate"
 
