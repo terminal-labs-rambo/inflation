@@ -16,6 +16,13 @@ set_user_key_perms:
   file.managed:
     - name: /home/vagrant/.ssh/id_rsa
     - mode: 600
+ 
+set_user_knownhosts_perms:
+ file.managed:
+  - name: /home/vagrant/.ssh/known_hosts
+  - user: vagrant
+  - group: vagrant
+  - mode: 644
 
 place_ssh_config_file_for_github:
   file.managed:
