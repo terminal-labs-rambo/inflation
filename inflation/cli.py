@@ -1,8 +1,9 @@
 import os
 import sys
 import json
-import click
 import pkg_resources
+
+import click
 
 from inflation.app import (
     inflate,
@@ -10,7 +11,7 @@ from inflation.app import (
 )
 
 PROJECT_NAME = 'inflation'
-version = pkg_resources.get_distribution('inflation').version
+version = pkg_resources.get_distribution(PROJECT_NAME).version
 
 context_settings = {
     'help_option_names': ['-h', '--help'],
@@ -25,8 +26,9 @@ def cli(ctx):
 
 ### Subcommands
 @cli.command('inflate')
-def inflate_cmd():
-    inflate()
+@click.argument('filepath')
+def inflate_cmd(filepath):
+    inflate(filepath)
 
 ### Subcommands
 @cli.command('deflate')
