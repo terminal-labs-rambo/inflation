@@ -1,0 +1,17 @@
+file_client: local
+
+failhard: True
+
+id: master
+
+file_roots:
+  base:
+    - /vagrant/saltstack/states
+
+grains:
+  roles:
+    - master
+  user_home_dir: /home/vagrant
+  user: vagrant
+  group: vagrant
+  fingerprint: 97:8c:1b:f2:6f:14:6b:5c:3b:ec:aa:46:46:74:7c:40
