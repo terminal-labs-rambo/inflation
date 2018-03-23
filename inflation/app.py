@@ -4,19 +4,21 @@ from inflation.config_parser import process_spec_file
 from rambo.app import (
     up,
     destroy,
+    ssh,
     set_init_vars,
 )
 
 HOME = os.path.expanduser('~')
-SALT_MASTER_RAMBO_PROJECT_NAME = 'salt-master-rambo-project'
+PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
+SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, '..', 'salt-master-rambo-project')
 
 def inflate(filepath):
-    working_dir = '/home/user/Desktop/inflation_system/inflation/salt-master-rambo-project'
-
     process_spec_file(filepath)
 
-    set_init_vars(cwd=working_dir, tmpdir_path=working_dir)
-    up(vagrant_dotfile_path=working_dir + '/.vagrant', provision=True)
+    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
+    up(provision=True)
+    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands.sh'")
 
 def deflate():
+    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
     destroy()

@@ -5,7 +5,7 @@ server_address = "10.0.2.2"
 
 def vbox_cli(cmd):
     try:
-        cli_output = requests.post("http://" + server_address + ":" + "5000", json={"cmd":cmd})
+        cli_output = requests.post("http://" + server_address + ":" + "5555", json={"cmd":cmd})
     except requests.exceptions.RequestException:
         print "It looks like the vbox api server is not running"
         sys.exit(0)
