@@ -17,8 +17,15 @@ def inflate(filepath):
 
     set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
     up(provision=True)
-    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands.sh'")
+    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
+    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
+    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
 
 def deflate():
     set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
+    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-delete-minions.sh'")
     destroy()
+
+def inflation_ssh():
+    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
+    ssh()

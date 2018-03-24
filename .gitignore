@@ -24,6 +24,7 @@ aws.env.sh
 keys/
 auth/*
 */auth
+secrets
 auth/tokens/*
 *.egg-info
 *__pycache__*

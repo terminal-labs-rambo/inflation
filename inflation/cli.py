@@ -8,6 +8,7 @@ import click
 from inflation.app import (
     inflate,
     deflate,
+    inflation_ssh
 )
 
 PROJECT_NAME = 'inflation'
@@ -17,22 +18,23 @@ context_settings = {
     'help_option_names': ['-h', '--help'],
 }
 
-### Main command / CLI entry point
 @click.group(context_settings=context_settings)
 @click.version_option(prog_name=PROJECT_NAME.capitalize(), version=version)
 @click.pass_context
 def cli(ctx):
     pass
 
-### Subcommands
 @cli.command('inflate')
 @click.argument('filepath')
 def inflate_cmd(filepath):
     inflate(filepath)
 
-### Subcommands
 @cli.command('deflate')
 def deflate_cmd():
     deflate()
+
+@cli.command('ssh')
+def ssh_cmd():
+    inflation_ssh()
 
 main = cli

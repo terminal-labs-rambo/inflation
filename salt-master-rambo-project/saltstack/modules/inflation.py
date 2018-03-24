@@ -16,18 +16,13 @@ def get_primary_address():
             if not ip.startswith('127') and not ip.startswith('10') and not ip.startswith('192.168'):
                 ip_address_candidates.append(ip)
 
-    if '172.28.128.1' in ip_address_candidates:
-        return '172.28.128.1'
-    if '172.28.128.2' in ip_address_candidates:
-        return '172.28.128.2'
-    if '172.28.128.3' in ip_address_candidates:
-        return '172.28.128.3'
-    if '172.28.128.4' in ip_address_candidates:
-        return '172.28.128.4'
-    if '172.28.128.5' in ip_address_candidates:
-        return '172.28.128.5'
-    if '172.28.128.128' in ip_address_candidates:
-        return '172.28.128.128'
+    acceptable_addresses = []
+    for _ in range(256):
+        acceptable_addresses.append('172.28.128.' + str(_))
+
+    for address in acceptable_addresses:
+        if address in ip_address_candidates:
+            return address
 
     if len(ip_address_candidates):
 		return ip_address_candidates[0]
