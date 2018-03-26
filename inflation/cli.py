@@ -8,7 +8,9 @@ import click
 from inflation.app import (
     inflate,
     deflate,
-    inflation_ssh
+    inflation_ssh,
+    startvboxserver,
+    stopvboxserver
 )
 
 PROJECT_NAME = 'inflation'
@@ -36,5 +38,17 @@ def deflate_cmd():
 @cli.command('ssh')
 def ssh_cmd():
     inflation_ssh()
+
+@cli.command('startvboxserver')
+def startvboxserver_cmd():
+    startvboxserver()
+
+@cli.command('startvboxserver')
+def startvboxserver_cmd():
+    startvboxserver()
+
+@cli.command('stopvboxserver')
+def stopvboxserver_cmd():
+    stopvboxserver()
 
 main = cli

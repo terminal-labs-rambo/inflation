@@ -1,4 +1,6 @@
 import os
+import sys
+import subprocess
 
 from inflation.config_parser import process_spec_file
 from rambo.app import (
@@ -29,3 +31,13 @@ def deflate():
 def inflation_ssh():
     set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
     ssh()
+
+def startvboxserver():
+    subprocess.Popen(["python", "vbox-server.py"], cwd="/home/user/.inflation/simple-vbox-server", stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+def stopvboxserver():
+    p = subprocess.Popen(["lsof", "-t", "-i:5555"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, err = p.communicate()
+    pid = output.decode("utf-8")
+    
+    os.system('kill ' + pid)
