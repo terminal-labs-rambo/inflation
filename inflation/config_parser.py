@@ -9,11 +9,7 @@ import subprocess
 import distutils.dir_util
 import distutils.file_util
 
-HOME = os.path.expanduser('~')
-SALT_MASTER_RAMBO_PROJECT_NAME = 'salt-master-rambo-project'
-PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
-SALT_MASTER_RAMBO_PROJECT_LOCATION = os.path.abspath(os.path.join(PROJECT_LOCATION, '..', SALT_MASTER_RAMBO_PROJECT_NAME))
-CLUSTER_METADATA_DIR = SALT_MASTER_RAMBO_PROJECT_LOCATION + '/.tmp'
+from inflation.settings import *
 
 def get_section(data, tag):
     return re.compile('<start ' + tag + '>(.*?)</end ' + tag + '>', re.DOTALL).findall(data)[0]

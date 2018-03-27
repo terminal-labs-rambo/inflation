@@ -15,15 +15,14 @@ from inflation.app import (
     createproject
 )
 
-PROJECT_NAME = 'inflation'
-version = pkg_resources.get_distribution(PROJECT_NAME).version
+from inflation.settings import *
 
 context_settings = {
     'help_option_names': ['-h', '--help'],
 }
 
 @click.group(context_settings=context_settings)
-@click.version_option(prog_name=PROJECT_NAME.capitalize(), version=version)
+@click.version_option(prog_name=PROJECT_NAME.capitalize(), version=VERSION)
 @click.pass_context
 def cli(ctx):
     pass

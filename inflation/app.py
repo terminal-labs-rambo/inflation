@@ -13,9 +13,7 @@ from rambo.app import (
     set_init_vars,
 )
 
-HOME = os.path.expanduser('~')
-PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
-SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, '..', 'salt-master-rambo-project')
+from inflation.settings import *
 
 def init():
     directory = HOME + '/.inflation'
@@ -63,19 +61,19 @@ def init():
 def inflate(filepath):
     process_spec_file(filepath)
 
-    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
+    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
     up(provision=True)
     ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
 
 def deflate():
-    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
+    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
     ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-delete-minions.sh'")
     destroy()
 
 def inflation_ssh():
-    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
+    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
     ssh()
 
 def startvboxserver():

@@ -14,9 +14,11 @@ from setuptools.command.develop import develop
 from setuptools.command.install import install
 from zipfile import ZipFile
 
+from inflation.settings import *
+
 setup(
-    name='inflation',
-    version='0.0.1.dev',
+    name=PROJECT_NAME,
+    version=VERSION,
     description='Clusters',
     url='https://github.com/terminal-labs/inflation',
     author='Terminal Labs',
