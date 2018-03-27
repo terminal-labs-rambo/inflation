@@ -23,5 +23,9 @@ aws.env.sh
 .rambo-tmp
 keys/
 auth/*
+*/auth
+secrets
 auth/tokens/*
+*.egg-info
+*__pycache__*
 /inflation_resources/compiled_scripts
