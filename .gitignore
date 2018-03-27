@@ -28,4 +28,3 @@ secrets
 auth/tokens/*
 *.egg-info
 *__pycache__*
-/inflation_resources/compiled_scripts
