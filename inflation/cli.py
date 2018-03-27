@@ -6,6 +6,7 @@ import pkg_resources
 import click
 
 from inflation.app import (
+    init,
     inflate,
     deflate,
     inflation_ssh,
@@ -25,6 +26,10 @@ context_settings = {
 @click.pass_context
 def cli(ctx):
     pass
+
+@cli.command('init')
+def init_cmd():
+    init()
 
 @cli.command('inflate')
 @click.argument('filepath')
