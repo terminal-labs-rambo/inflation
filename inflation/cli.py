@@ -11,7 +11,8 @@ from inflation.app import (
     deflate,
     inflation_ssh,
     startvboxserver,
-    stopvboxserver
+    stopvboxserver,
+    createproject
 )
 
 PROJECT_NAME = 'inflation'
@@ -55,5 +56,10 @@ def startvboxserver_cmd():
 @cli.command('stopvboxserver')
 def stopvboxserver_cmd():
     stopvboxserver()
+
+@cli.command('createproject')
+@click.argument('project_name')
+def createproject_cmd(project_name):
+    createproject(project_name)
 
 main = cli

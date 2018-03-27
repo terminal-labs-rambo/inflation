@@ -87,3 +87,24 @@ def stopvboxserver():
     pid = output.decode("utf-8")
 
     os.system('kill ' + pid)
+
+def createproject(project_name, config_only=None):
+    path = os.path.join(os.getcwd(), project_name)
+    path_exists = os.path.exists(path)
+    if not path_exists:
+        repo = 'sample-inflation-project'
+        url = 'https://github.com/terminal-labs/sample-inflation-project/archive/master.zip'
+        filename =  repo + '.zip'
+        with urllib.request.urlopen(url) as response, open(
+                filename, 'wb') as out_file:
+            shutil.copyfileobj(response, out_file)
+        zipfile = filename
+        with ZipFile(zipfile) as zf:
+            zf.extractall()
+        shutil.copytree(os.path.abspath(repo + '-master'), path)
+        shutil.rmtree(repo + '-master')
+        os.remove(repo + '.zip')
+    if path_exists:
+        print('Directory already exists.')
+
+
