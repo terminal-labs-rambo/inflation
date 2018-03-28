@@ -59,6 +59,18 @@ def init():
         os.remove(filename)
 
 def inflate(filepath):
+    if not os.path.exists(SALT_MASTER_RAMBO_PROJECT_LOCATION):
+        url = 'https://github.com/terminal-labs/sample-states/archive/inflation-master.zip'
+        filename = 'inflation-master.zip'
+        with urllib.request.urlopen(url) as response, open(
+                filename, 'wb') as out_file:
+            shutil.copyfileobj(response, out_file)
+        zipfile = filename
+        with ZipFile(zipfile) as zf:
+            zf.extractall()
+        shutil.move(os.path.abspath('sample-states-inflation-master'), SALT_MASTER_RAMBO_PROJECT_LOCATION)
+        os.remove(filename)
+
     process_spec_file(filepath)
 
     set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
@@ -104,5 +116,3 @@ def createproject(project_name, config_only=None):
         os.remove(repo + '.zip')
     if path_exists:
         print('Directory already exists.')
-
-
