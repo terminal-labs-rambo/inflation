@@ -15,6 +15,24 @@ from rambo.app import (
 
 from inflation.settings import *
 
+def copy_auth_dir():
+    target_auth_path = SALT_MASTER_RAMBO_PROJECT_LOCATION + '/auth'
+    if os.path.exists(target_auth_path):
+        shutil.rmtree(target_auth_path)
+    if os.path.exists('auth'):
+        shutil.copytree('auth', target_auth_path)
+    elif os.path.exists(HOME + '/.rambo/auth'):
+        shutil.copytree(HOME + '/.rambo/auth', target_auth_path)
+
+def copy_secrets_dir():
+    target_secrets_path = SALT_MASTER_RAMBO_PROJECT_LOCATION + '/secrets'
+    if os.path.exists(target_secrets_path):
+        shutil.rmtree(target_secrets_path)
+    if os.path.exists('secrets'):
+        shutil.copytree('secrets', target_secrets_path)
+    elif os.path.exists(HOME + '/.rambo/secrets'):
+        shutil.copytree(HOME + '/.rambo/secrets', target_secrets_path)
+
 def init():
     directory = HOME + '/.inflation'
     if not os.path.exists(directory):
@@ -71,6 +89,8 @@ def inflate(filepath):
         shutil.move(os.path.abspath('sample-states-inflation-master'), SALT_MASTER_RAMBO_PROJECT_LOCATION)
         os.remove(filename)
 
+    copy_auth_dir()
+    copy_secrets_dir()
     process_spec_file(filepath)
 
     set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
@@ -80,9 +100,11 @@ def inflate(filepath):
     ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
 
 def deflate():
-    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
-    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-delete-minions.sh'")
-    destroy()
+    if os.path.exists(SALT_MASTER_RAMBO_PROJECT_LOCATION):
+        set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
+        ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-delete-minions.sh'")
+        destroy()
+        shutil.rmtree(SALT_MASTER_RAMBO_PROJECT_LOCATION)
 
 def inflation_ssh():
     set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
