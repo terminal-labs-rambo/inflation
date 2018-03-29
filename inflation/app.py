@@ -111,12 +111,12 @@ def inflation_ssh():
     ssh()
 
 def startvboxserver():
-    subprocess.Popen(["python", "vbox-server.py"], cwd="/home/user/.inflation/simple-vbox-server", stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.Popen(['python', 'vbox-server.py'], cwd=HOME + '/.inflation/simple-vbox-server', stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 def stopvboxserver():
-    p = subprocess.Popen(["lsof", "-t", "-i:5555"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p = subprocess.Popen(['lsof', '-t', '-i:5555'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, err = p.communicate()
-    pid = output.decode("utf-8")
+    pid = output.decode('utf-8')
 
     os.system('kill ' + pid)
 
