@@ -94,7 +94,7 @@ def inflate(filepath):
     process_spec_file(filepath)
 
     set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_LOCATION)
-    up(provision=True)
+    up(provision=True, ram_size=4096)
     ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
