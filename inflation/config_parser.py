@@ -6,9 +6,6 @@ import yaml
 import shutil
 import subprocess
 
-import distutils.dir_util
-import distutils.file_util
-
 from inflation.settings import *
 
 def get_section(data, tag):
@@ -47,14 +44,16 @@ def process_spec_file(config_file_path):
     minion_repos_section = get_section(data, 'repos')
     config = yaml.load(minion_repos_section)
     for repo in config['minion_repos']:
-        if '.git' in repo:
-            repo_name = repo.split('/')[-1].replace('.git', '')
-            cmd = 'git clone ' + repo + ' ' + HOME + '/.inflation/minion_repos/' + repo_name
+        if "file://" not in repo:
+            if '.git' in repo:
+                repo_name = repo.split('/')[-1].replace('.git', '')
+                cmd = 'git clone ' + repo + ' ' + HOME + '/.inflation/minion_repos/' + repo_name
+            proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+            proc.communicate()[0]
         else:
+            repo_path = repo.replace('file://','')
             repo_name = repo.split('/')[-1]
-            cmd = 'hg clone ' + repo + ' [name for name in os.listdir(a_dir)/' + repo_name
-        proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
-        proc.communicate()[0]
+            shutil.copytree(repo_path, HOME + '/.inflation/minion_repos/' + repo_name )
 
     print('copying over salt state files from minion repos')
     for repo_dir in os.listdir(HOME + '/.inflation/minion_repos'):
@@ -64,9 +63,19 @@ def process_spec_file(config_file_path):
 
         src = HOME + '/.inflation/minion_repos/' +  repo_dir + rambo_path + 'saltstack/states/.'
         dist = CLUSTER_METADATA_DIR + '/imported_salt_states/'
-        distutils.dir_util.copy_tree(src, dist)
+        shutil.copytree(src, dist + repo_dir)
+
         if os.path.isfile( CLUSTER_METADATA_DIR + '/imported_salt_states/top.sls'):
             os.remove(CLUSTER_METADATA_DIR + '/imported_salt_states/top.sls')
+
+    dir_path = CLUSTER_METADATA_DIR + '/imported_salt_states'
+    files = [os.path.join(dirpath, filename) for dirpath, dirnames, filenames in os.walk(dir_path) for filename in filenames]
+    for file_path in files:
+        with open(file_path, 'r') as fin:
+            lines = fin.readlines()
+            for line in lines:
+                if "- source: salt://" in line:
+                    print(line)
 
     print('writing top file')
     base_section = get_section(data, 'top')
