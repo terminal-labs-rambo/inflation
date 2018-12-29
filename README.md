@@ -7,3 +7,5 @@ bash Miniconda3-latest-Linux-x86_64.sh -b
 export PATH="~/miniconda3/bin:$PATH"
 
 conda create -n inflation_system python=3.7
+
+source activate inflation_system
