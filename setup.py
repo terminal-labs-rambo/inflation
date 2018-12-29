@@ -27,7 +27,9 @@ setup(
     zip_safe=False,
     install_requires=[
         'click',
-        'termcolor'
+        'termcolor',
+        'pyyaml',
+        'rambo-vagrant'
     ],
     classifiers = [
             "Programming Language :: Python :: 3.2",
