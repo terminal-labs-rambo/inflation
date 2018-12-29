@@ -9,3 +9,9 @@ export PATH="~/miniconda3/bin:$PATH"
 conda create -n inflation_system python=3.7
 
 source activate inflation_system
+
+clone the repo
+
+cd into the repo
+
+git checkout clickwrapper
