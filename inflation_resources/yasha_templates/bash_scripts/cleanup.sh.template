@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+source inflation_resources/scripts/header.sh
+
+echo "stoping api server"
+bash inflation_resources/scripts/server_scripts/stop_server.sh
+
+{% for name in [
+  'centos7-512mb',
+  'centos7-1024mb',
+  'centos7-2048mb',
+  'centos7-4096mb',
+  'centos7-8192mb',
+  'debian8-512mb',
+  'debian8-1024mb',
+  'debian8-2048mb',
+  'debian8-4096mb',
+  'debian8-8192mb',
+  'ubuntu14-512mb',
+  'ubuntu14-1024mb',
+  'ubuntu14-2048mb',
+  'ubuntu14-4096mb',
+  'ubuntu14-8192mb',
+  'ubuntu16-512mb',
+  'ubuntu16-1024mb',
+  'ubuntu16-2048mb',
+  'ubuntu16-4096mb',
+  'ubuntu16-8192mb' ] %}
+  echo "clearing {{ name }} box"
+  cd ~/.inflation/vbox_machine_repos/{{ name }}
+  vagrant destroy -f --no-color
+{% endfor %}
+
+echo "clearing vagrant boxes"
+vagrant box list | grep 'There are no installed boxes! Use `vagrant box add` to add some.' &> /dev/null
+if ! [ $? == 0 ]; then
+  vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
+fi
+
+echo "clearing build dir"
+rm -rf build
+
+echo "clearing tmp dir"
+rm -rf .tmp
+
+echo "clearing vagrant dir"
+rm -rf .vagrant
+
+echo "clearing inflation dir"
+rm -rf ~/.inflation
