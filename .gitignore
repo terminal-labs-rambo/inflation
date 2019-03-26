@@ -25,6 +25,7 @@ aws.env.sh
 docs/_build
 srv/salt/ssh_keys
 rambo/saltstack
+.rambo-tmp
 .tmp
 **/auth/keys
 **/licenses
