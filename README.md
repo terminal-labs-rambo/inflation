@@ -4,7 +4,9 @@
 
 This project is very experimental
 
-# iinstallation
+# installation
+
+1) install anaconda
 
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
