@@ -2,6 +2,8 @@
 
 source inflation_resources/scripts/header.sh
 
+pip install virtualenv
+
 uname | grep 'Darwin' &> /dev/null
 if ! [ $? == 0 ]; then
  bash inflation_resources/scripts/install_scripts/linux_install.sh
