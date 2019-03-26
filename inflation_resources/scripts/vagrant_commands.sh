@@ -4,6 +4,8 @@ vendor=$(<.tmp/vendor)
 
 echo "starting salt master node"
 rambo up -o ubuntu-1604
+rambo scp inflation_resources /vagrant/inflation_resources
+rambo scp scripts /vagrant/scripts
 echo "master node is up"
 
 echo "initilising cluster"

@@ -14,4 +14,4 @@ base:
     - supervisord
     - supervisord.logging_server
     - supervisord.start
-    - salt_master
+    #- salt_master
