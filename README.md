@@ -6,7 +6,7 @@ This project is very experimental
 
 # installation
 
-1) 
+first
 
 install anaconda
 
