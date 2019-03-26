@@ -14,6 +14,9 @@ if ! [ $? == 0 ]; then
   vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
 fi
 
+pip install -U setuptools
+pip install -U pip
+
 echo "creating inflation dir"
 mkdir -p ~/.inflation
 mkdir -p ~/.inflation/minion_repos
