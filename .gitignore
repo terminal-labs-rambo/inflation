@@ -15,7 +15,6 @@ syntax: glob
 *.#*
 *#
 *.egg-info
-*flymd*
 
 ## paths
 dist
