@@ -19,25 +19,26 @@ def main(args=None):
     data = file_obj.read()
 
     print('writing salt-cloud files')
-    providers_section = re.compile('<start providers>(.*?)</end providers>', re.DOTALL).findall(data)[0]
+
+    providers_section = re.compile('<start providers>(.*?)</end providers>', re.DOTALL).findall(data.decode("utf-8"))[0]
     with open(main_dir + '/.tmp/cloud.providers', 'w') as outfile:
         outfile.write(providers_section)
 
-    profiles_section = re.compile('<start profiles>(.*?)</end profiles>', re.DOTALL).findall(data)[0]
+    profiles_section = re.compile('<start profiles>(.*?)</end profiles>', re.DOTALL).findall(data.decode("utf-8"))[0]
     with open(main_dir + '/.tmp/cloud.profiles', 'w') as outfile:
         outfile.write(profiles_section)
 
-    map_section = re.compile('<start map>(.*?)</end map>', re.DOTALL).findall(data)[0]
+    map_section = re.compile('<start map>(.*?)</end map>', re.DOTALL).findall(data.decode("utf-8"))[0]
     with open(main_dir  + '/.tmp/cloud.map', 'w') as outfile:
         outfile.write(map_section)
 
-    vendor_section = re.compile('<start vendor>(.*?)</end vendor>', re.DOTALL).findall(data)[0]
+    vendor_section = re.compile('<start vendor>(.*?)</end vendor>', re.DOTALL).findall(data.decode("utf-8"))[0]
     config = yaml.load(vendor_section)
     with open(main_dir  + '/.tmp/vendor', 'w') as outfile:
         outfile.write(config['vendor'])
 
     print("cloning minion repos")
-    minion_repos_section = re.compile('<start repos>(.*?)</end repos>', re.DOTALL).findall(data)[0]
+    minion_repos_section = re.compile('<start repos>(.*?)</end repos>', re.DOTALL).findall(data.decode("utf-8"))[0]
     config = yaml.load(minion_repos_section)
     for repo in config['minion_repos']:
         if '.git' in repo:
@@ -63,7 +64,7 @@ def main(args=None):
             os.remove('.tmp/imported_salt_states/top.sls')
 
     print('writing top file')
-    base_section = re.compile('<start top>(.*?)</end top>', re.DOTALL).findall(data)[0]
+    base_section = re.compile('<start top>(.*?)</end top>', re.DOTALL).findall(data.decode("utf-8"))[0]
     with open(script_dir + '/../.tmp/imported_salt_states/top.sls', 'w') as outfile:
         outfile.write(base_section)
 

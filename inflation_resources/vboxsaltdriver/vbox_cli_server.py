@@ -18,7 +18,7 @@ def sanitation(s, max_length=16):
     is_good = False
 
     if isinstance(s, str):
-		is_good = True
+        is_good = True
     else:
         return False
 
@@ -130,7 +130,7 @@ def vbox_web_cli():
 
     data = request.json
     if len(data.get(u'cmd')) > 8:
-		cmd = str(data.get(u'cmd'))
+        cmd = str(data.get(u'cmd'))
     else:
         return "bad command"
 
@@ -146,7 +146,7 @@ def vbox_web_cli():
     if cleaned_cmd:
         cli_output = subprocess.check_output(cleaned_cmd)
     else:
-		return "bad command"
+        return "bad command"
 
     return cli_output
 
