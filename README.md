@@ -4,7 +4,7 @@ This project is very experimental
 
 # Hardware Recommendations
 
-THis version assumes that the hots os is RHEL 7.5
+This version assumes that the hots os is RHEL 7.5
 
 Reasonably fast cpu with 2 or more cores and VT-x (I used a Intel i7-3612QM 2.1GHz, 4 core chip)
 
