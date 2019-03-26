@@ -8,12 +8,9 @@ base:
     - network
     - network.cluster
     - users
-    - lastpass
-    - lastpass.login
-    - lastpass.github_keys
     - python
     - conda
-    - logging
+    #- logging
     - supervisord
     - supervisord.logging_server
     - supervisord.start
