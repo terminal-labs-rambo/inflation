@@ -15,7 +15,7 @@ bash Miniconda3-latest-Linux-x86_64.sh -b
 export PATH="~/miniconda3/bin:$PATH"
 ```
 
-# setup conda env
+setup conda env
 ```
 conda create -n inflation python=3.7
 source activate inflation
