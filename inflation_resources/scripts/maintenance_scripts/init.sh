@@ -3,6 +3,7 @@
 source inflation_resources/scripts/header.sh
 
 pip install virtualenv
+pip install yasha
 
 uname | grep 'Darwin' &> /dev/null
 if ! [ $? == 0 ]; then
