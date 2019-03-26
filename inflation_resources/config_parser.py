@@ -47,7 +47,7 @@ def main(args=None):
             repo_name = repo.split('/')[-1]
             cmd = 'hg clone ' + repo + ' [name for name in os.listdir(a_dir)/' + repo_name
         proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
-        print proc.communicate()[0]
+        print(proc.communicate()[0])
 
     print("copying over salt state files from minion repos")
     homedir = os.path.expanduser('~')
