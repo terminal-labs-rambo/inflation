@@ -11,9 +11,7 @@ file_roots:
 grains:
   roles:
     - master
-  salt_cloud_provisioner: virtualbox
-    
-  user_home_dir: /home/vagrant
-  user: vagrant
-  group: vagrant
+  user_home_dir: /root  
+  user: root
+  group: root
   fingerprint: 97:8c:1b:f2:6f:14:6b:5c:3b:ec:aa:46:46:74:7c:40
