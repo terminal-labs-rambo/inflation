@@ -10,4 +10,4 @@ rambo ssh -c "bash\ /vagrant/inflation_resources/scripts/setup_master.sh"
 echo "master node is up"
 
 echo "initilising cluster"
-vagrant  ssh -c "sudo bash /vagrant/inflation_resources/scripts/salt_commands.sh" 2> /dev/null
+rambo ssh -c "sudo\ bash\ /vagrant/inflation_resources/scripts/salt_commands.sh"
