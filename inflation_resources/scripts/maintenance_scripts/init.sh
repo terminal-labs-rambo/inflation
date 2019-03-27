@@ -7,6 +7,8 @@ pip install rambo-vagrant
 pip install virtualenv
 pip install yasha
 
+bash inflation_resources/scripts/install_scripts/install.sh
+
 vagrant box list | grep 'There are no installed boxes! Use `vagrant box add` to add some.' &> /dev/null
 if ! [ $? == 0 ]; then
   vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
