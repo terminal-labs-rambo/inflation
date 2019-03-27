@@ -25,7 +25,7 @@ get_salt_tags:
 
 checkout_salt_branch:
   cmd.run:
-    - name: git checkout v2019.2.0    
+    - name: git checkout v2017.7.1
     - cwd: /home/saltmaster/salt_src
     - runas: root
 
