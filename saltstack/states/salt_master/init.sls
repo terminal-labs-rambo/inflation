@@ -167,43 +167,11 @@ place_salt_cloud_patch_dir:
     - cwd: /home/saltmaster
     - runas: saltmaster
 
-install_salt_cloud_driver:
-  cmd.run:
-    - name: ./bin/pip install -e ../vboxsaltdriver_src
-    - cwd: /home/saltmaster/salt_venv
-    - runas: saltmaster
-
 patch_saltcloud:
   cmd.run:
     - name: bash /home/saltmaster/vboxsaltdriver_src/patch.sh
-    - cwd: /home/saltmaster
+    - cwd: /home/saltmster
     - runas: saltmaster
-
-place_salt_cloud_patch_dir_inflation:
-  cmd.run:
-    - name: cp -r /vagrant/saltstack/states/salt_master/drivers/inflationsaltdriver /home/saltmaster/inflationsaltdriver_src
-    - cwd: /home/saltmaster
-    - runas: saltmaster
-
-install_salt_cloud_driver_inflation:
-  cmd.run:
-    - name: ./bin/pip install -e ../inflationsaltdriver_src
-    - cwd: /home/saltmaster/salt_venv
-    - runas: saltmaster
-
-patch_saltcloud_inflation:
-  cmd.run:
-    - name: bash /home/saltmaster/inflationsaltdriver_src/patch.sh
-    - cwd: /home/saltmaster
-    - runas: saltmaster
-
-patch_inflation_driver_config:
-  file.managed:
-    - name: /home/saltmaster/inflation_driver_config.json
-    - source: salt://salt_master/inflation_driver_config.json
-    - template: jinja
-    - user: saltmaster
-    - group: saltmaster
 
 create_keys_dir:
   file.directory:
