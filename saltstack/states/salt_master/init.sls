@@ -170,7 +170,7 @@ place_salt_cloud_patch_dir:
 patch_saltcloud:
   cmd.run:
     - name: bash /home/saltmaster/vboxsaltdriver_src/patch.sh
-    - cwd: /home/saltmster
+    - cwd: /home/saltmaster
     - runas: saltmaster
 
 create_keys_dir:
