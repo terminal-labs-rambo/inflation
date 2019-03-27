@@ -31,8 +31,3 @@ conda create -n inflation python=3.7
 
 source activate inflation
 ```
-
-install rambo
-```
-pip install rambo-vagrant
-```
