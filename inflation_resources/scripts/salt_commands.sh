@@ -139,12 +139,6 @@ saltmaster "*" "state.sls cluster_init.setup_passwordless_sudo"
 echo "accept host keys"
 saltmaster "master" "state.sls cluster_init.accept_hostkeys"
 
-echo "copy known_hosts file for salt distribution"
-saltmaster "master" "state.sls cluster_init.prepare_known_hosts_for_distribution"
-
-echo "distribute known_hosts file"
-saltmaster "*" "state.sls cluster_init.distribute_known_hosts_file"
-
 echo "post build cleaning"
 saltmaster "*" "state.sls cluster_init.clean"
 
