@@ -31,3 +31,8 @@ conda create -n inflation python=3.7
 
 source activate inflation
 ```
+
+activate inflation tools
+```
+. activate.sh
+```
