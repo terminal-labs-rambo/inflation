@@ -139,9 +139,6 @@ saltmaster "*" "state.sls cluster_init.setup_passwordless_sudo"
 echo "accept host keys"
 saltmaster "master" "state.sls cluster_init.accept_hostkeys"
 
-echo "post build cleaning"
-saltmaster "*" "state.sls cluster_init.clean"
-
 echo "run highstate - first run"
 saltmaster "*" "state.highstate"
 
