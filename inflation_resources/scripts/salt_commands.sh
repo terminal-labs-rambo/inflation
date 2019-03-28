@@ -124,9 +124,6 @@ saltmaster "*" "state.sls cluster_init.set_hostname_grain"
 echo "set cluster nodes grain"
 saltmaster "*" "state.sls cluster_init.set_cluster_nodes_grain"
 
-echo "set cluster fqdn"
-saltmaster "*" "state.sls cluster_init.set_cluster_fqdn"
-
 echo "setting up ssh key pairs for salt"
 saltmaster "*" "ssh.set_auth_key vagrant $public_key enc='rsa'"
 
