@@ -19,13 +19,13 @@ set_salt_upstream:
 
 get_salt_tags:
   cmd.run:
-    - name: git fetch --tags upstream
+    - name: git fetch --tags upstream > /dev/null 2>&1
     - cwd: /home/saltmaster/salt_src
     - runas: root
 
 checkout_salt_branch:
   cmd.run:
-    - name: git checkout v2017.7.1
+    - name: git checkout v2017.7.1 > /dev/null 2>&1
     - cwd: /home/saltmaster/salt_src
     - runas: root
 
@@ -45,12 +45,12 @@ create_salt_controlplane:
 
 install_venv:
   cmd.run:
-    - name: virtualenv /home/saltmaster/salt_venv --system-site-packages
+    - name: virtualenv /home/saltmaster/salt_venv --system-site-packages > /dev/null 2>&1
     - runas: saltmaster
 
 update_pip:
   cmd.run:
-    - name: ./bin/pip install -U setuptools; ./bin/pip install -U pip
+    - name: ./bin/pip install -U setuptools > /dev/null 2>&1; ./bin/pip install -U pip > /dev/null 2>&1
     - cwd: /home/saltmaster/salt_venv
     - runas: saltmaster
 
@@ -63,13 +63,13 @@ place_pip_requirements_file:
 
 place_pip_requirements:
   cmd.run:
-    - name: ./bin/pip install -r requirements.txt
+    - name: ./bin/pip install -r requirements.txt > /dev/null 2>&1
     - cwd: /home/saltmaster/salt_venv
     - runas: saltmaster
 
 install_salt_src:
   cmd.run:
-    - name: ./bin/pip install -e /home/saltmaster/salt_src
+    - name: ./bin/pip install -e /home/saltmaster/salt_src > /dev/null 2>&1
     - cwd: /home/saltmaster/salt_venv
     - runas: saltmaster
 
@@ -213,7 +213,7 @@ place_internal_cli_script:
 
 install_internal_cli_deps:
   cmd.run:
-    - name: ./bin/pip install click bash
+    - name: ./bin/pip install click bash > /dev/null 2>&1
     - cwd: /home/saltmaster/salt_venv
     - runas: saltmaster
 

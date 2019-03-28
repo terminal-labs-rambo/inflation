@@ -4,7 +4,7 @@
 
 download_miniconda_installer:
   cmd.run:
-    - name: wget https://repo.continuum.io/miniconda/Miniconda3-4.3.31-Linux-x86_64.sh -O /home/{{ grains['deescalated_user'] }}/miniconda.sh
+    - name: wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.3.31-Linux-x86_64.sh -O /home/{{ grains['deescalated_user'] }}/miniconda.sh
     - unless: test -f {{ conda_bin_path }}/conda
     - runas: {{ grains['deescalated_user'] }}
     - require:
@@ -12,7 +12,7 @@ download_miniconda_installer:
 
 install_miniconda:
   cmd.run:
-    - name: bash miniconda.sh -b
+    - name: bash miniconda.sh -b > /dev/null 2>&1
     - unless: test -f {{ conda_bin_path }}/conda
     - runas: {{ grains['deescalated_user'] }}
 
@@ -26,7 +26,7 @@ add_conda_to_bashrc:
 
 creat_conda_env:
   cmd.run:
-    - name: /home/{{ grains['deescalated_user'] }}/miniconda3/bin/conda create -y --name conda_env python=3.6 pip
+    - name: /home/{{ grains['deescalated_user'] }}/miniconda3/bin/conda create -y --name conda_env python=3.6 pip  > /dev/null 2>&1
     - runas: {{ grains['deescalated_user'] }}
     - env:
       - PATH: {{ [current_path, conda_bin_path]|join(':') }}
