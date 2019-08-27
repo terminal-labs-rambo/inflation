@@ -31,7 +31,7 @@ def cli(ctx):
 def init_cmd():
     init()
 
-cli.command('version')
+@cli.command('version')
 def version_cmd():
     print("0.0.1.dev")
     
