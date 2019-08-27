@@ -29,7 +29,6 @@ setup(
         'click',
         'termcolor',
         'pyyaml',
-        'rambo-vagrant'
     ],
     classifiers = [
             "Programming Language :: Python :: 3.2",
