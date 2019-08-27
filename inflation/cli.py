@@ -33,7 +33,7 @@ def init_cmd():
 
 @cli.command('version')
 def version_cmd():
-    print("0.0.1.dev")
+    print("Inflation, version 0.0.1.dev")
     
 @cli.command('inflate')
 @click.argument('filepath')
