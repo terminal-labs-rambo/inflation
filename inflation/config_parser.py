@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import re
 import sys
@@ -78,12 +77,3 @@ def process_spec_file(config_file_path):
     print("writing top file")
     base_section = get_section(data, "top")
     write_cloud_conf_file(CLUSTER_METADATA_DIR + "/imported_salt_states/top.sls", base_section)
-
-
-def main():
-    config_file_path = sys.argv[1]
-    process_spec_file(config_file_path)
-
-
-if __name__ == "__main__":
-    main()
