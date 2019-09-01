@@ -15,7 +15,7 @@ from rambo.app import (
 
 HOME = '/vagrant'
 PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
-SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, '..', 'salt-master-rambo-project')
+SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, '..', 'inflation-master')
 
 def init():
     directory = HOME + '/.inflation'
@@ -78,15 +78,17 @@ def init():
 def inflate(filepath):
     process_spec_file(filepath)
 
-    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
-    up(provision=True)
-    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
-    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
-    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
+    set_init_vars(cwd="/vagrant/inflation-master")
+    os.environ["DIGITALOCEAN_TOKEN"] = "3fdf22c983c9ec2b29b443a6a8c951bb01f177401a411be2ca64d8b4d2d9f502"
+    os.environ["DIGITALOCEAN_PRIVATE_KEY_PATH"] = "/vagrant/inflation-master/auth/keys/digitalocean.pem"
+    up(provider="digitalocean", )
+    #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
+    #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
+    #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
 
 def deflate():
     set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
-    ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-delete-minions.sh'")
+    #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-delete-minions.sh'")
     destroy()
 
 def inflation_ssh():
