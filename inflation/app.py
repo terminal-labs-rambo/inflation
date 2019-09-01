@@ -13,7 +13,7 @@ from rambo.app import (
     set_init_vars,
 )
 
-HOME = os.path.expanduser('~')
+HOME = '/vagrant'
 PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
 SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, '..', 'salt-master-rambo-project')
 
@@ -59,6 +59,21 @@ def init():
             zf.extractall()
         shutil.move(os.path.abspath('simple-vbox-server-master'), target)
         os.remove(filename)
+
+
+    target = os.path.abspath(HOME + '/inflation-master')
+    if not os.path.exists(target): # Do not overwrite existing dir. Installs don't delete!
+        url = 'https://github.com/terminal-labs/rambo_inflation-master/archive/master.zip'
+        filename = 'rambo_inflation-master.zip'
+        with urllib.request.urlopen(url) as response, open(
+                filename, 'wb') as out_file:
+            shutil.copyfileobj(response, out_file)
+        zipfile = filename
+        with ZipFile(zipfile) as zf:
+            zf.extractall()
+        shutil.move(os.path.abspath('rambo_inflation-master-master'), target)
+        os.remove(filename)
+
 
 def inflate(filepath):
     process_spec_file(filepath)
