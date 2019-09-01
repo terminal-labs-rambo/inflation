@@ -79,20 +79,17 @@ def inflate(filepath):
     process_spec_file(filepath)
 
     set_init_vars(cwd="/vagrant/inflation-master")
-    os.environ["DIGITALOCEAN_TOKEN"] = ""
-    os.environ["DIGITALOCEAN_PRIVATE_KEY_PATH"] = "/vagrant/inflation-master/auth/keys/digitalocean.pem"
-    up(provider="digitalocean", )
+    up(provider="digitalocean")
     #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
 
 def deflate():
-    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
-    #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-delete-minions.sh'")
+    set_init_vars(cwd="/vagrant/inflation-master")
     destroy()
 
 def inflation_ssh():
-    set_init_vars(cwd=SALT_MASTER_RAMBO_PROJECT_NAME)
+    set_init_vars(cwd="/vagrant/inflation-master")
     ssh()
 
 def startvboxserver():
