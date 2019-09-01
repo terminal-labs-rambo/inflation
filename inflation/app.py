@@ -79,7 +79,7 @@ def inflate(filepath):
     process_spec_file(filepath)
 
     set_init_vars(cwd="/vagrant/inflation-master")
-    os.environ["DIGITALOCEAN_TOKEN"] = "3fdf22c983c9ec2b29b443a6a8c951bb01f177401a411be2ca64d8b4d2d9f502"
+    os.environ["DIGITALOCEAN_TOKEN"] = ""
     os.environ["DIGITALOCEAN_PRIVATE_KEY_PATH"] = "/vagrant/inflation-master/auth/keys/digitalocean.pem"
     up(provider="digitalocean", )
     #ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
