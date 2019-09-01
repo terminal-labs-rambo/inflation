@@ -30,7 +30,10 @@ activate.sh
 *workingdirs
 *secrets
 *dist
+<<<<<<< HEAD
 inflation-master
+=======
+>>>>>>> master
 
 *.terraform
 *terraform.tfstate

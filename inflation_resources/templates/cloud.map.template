@@ -1,0 +1,4 @@
+debian:
+- minion_0
+- minion_1
+- minion_2

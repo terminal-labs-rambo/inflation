@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+cd ~/.inflation/
+git clone git@github.com:terminal-labs/vagrantfiles.git
+cd -
+
+{% for name in [
+  'ubuntu16-512mb',
+  'ubuntu16-1024mb',
+  'ubuntu16-2048mb',
+  'ubuntu16-4096mb',
+  'ubuntu16-8192mb' ] %}
+  if [[ $(vboxmanage list vms | grep "{{ name }}") ]]; then
+      echo "{{ name }} is setup"
+  else
+      mkdir -p ~/.inflation/vbox_machine_repos
+      echo "setting up {{ name }}"
+      cp -r ~/.inflation/vagrantfiles/{{ name }} ~/.inflation/vbox_machine_repos/{{ name }}
+      cd ~/.inflation/vbox_machine_repos/{{ name }}
+      vagrant up --no-color
+      vagrant halt --no-color
+      cd -
+  fi
+{% endfor %}
