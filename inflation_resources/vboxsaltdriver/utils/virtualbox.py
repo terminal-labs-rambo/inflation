@@ -7,17 +7,18 @@ log = logging.getLogger(__name__)
 
 import vboxsaltdriver
 
+
 def vb_get_vm_list():
     machine_name_list_raw = vboxsaltdriver.list_vms()
     vms = machine_name_list_raw.split("\n")
 
     machine_name_list = []
     for vm in vms:
-        machine_name_list.append(vm.split(" ")[0].replace('"',''))
+        machine_name_list.append(vm.split(" ")[0].replace('"', ""))
 
     machines = []
     for machine_name in machine_name_list:
-        machines.append({"name":machine_name})
+        machines.append({"name": machine_name})
 
     return machines
 
@@ -28,7 +29,7 @@ def vb_stop_vm(name):
 
     machine_name_list = []
     for vm in vms:
-        machine_name_list.append(vm.split(" ")[0].replace('"',''))
+        machine_name_list.append(vm.split(" ")[0].replace('"', ""))
 
     if name in machine_name_list:
         log.info("Stopping machine %s", name)
@@ -72,13 +73,15 @@ def vb_get_vm_address(name=None):
 
 
 def vb_util_treat_vm_dict(machine):
-    machine.update({
-        "id": machine.get("id", ""),
-        "image": machine.get("image", ""),
-        "size": "{0} MB".format(machine.get("memorySize", 0)),
-        "state": "on",
-        "private_ips": [],
-        "public_ips": [],
-    })
+    machine.update(
+        {
+            "id": machine.get("id", ""),
+            "image": machine.get("image", ""),
+            "size": "{0} MB".format(machine.get("memorySize", 0)),
+            "state": "on",
+            "private_ips": [],
+            "public_ips": [],
+        }
+    )
 
     return machine

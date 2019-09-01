@@ -20,10 +20,11 @@ from salt.utils.virtualbox import (
 log = logging.getLogger(__name__)
 
 # The name salt will identify the lib by
-__virtualname__ = 'virtualbox'
+__virtualname__ = "virtualbox"
+
 
 def __virtual__():
-    '''
+    """
     This function determines whether or not
     to make this cloud module available upon execution.
     Most often, it uses get_configured_provider() to determine
@@ -34,7 +35,7 @@ def __virtual__():
      then that name should be returned instead of True.
 
     @return True|False|str
-    '''
+    """
     return __virtualname__
 
 
@@ -42,10 +43,7 @@ def get_configured_provider():
     """
     Return the first configured instance.
     """
-    configured = config.is_provider_configured(
-        __opts__,
-        __active_provider_name__ or __virtualname__,
-    )
+    configured = config.is_provider_configured(__opts__, __active_provider_name__ or __virtualname__)
     return configured
 
 
@@ -73,52 +71,35 @@ def create(vm_info):
 
     try:
         # Check for required profile parameters before sending any API calls.
-        if vm_info['profile'] and config.is_profile_configured(
-            __opts__,
-            __active_provider_name__ or 'virtualbox',
-            vm_info['profile']
-        ) is False:
+        if vm_info["profile"] and config.is_profile_configured(__opts__, __active_provider_name__ or "virtualbox", vm_info["profile"]) is False:
             return False
     except AttributeError:
         pass
 
     vm_name = vm_info["name"]
-    deploy = config.get_cloud_config_value(
-        'deploy', vm_info, __opts__, search_global=False, default=True
-    )
-    wait_for_ip_timeout = config.get_cloud_config_value(
-        'wait_for_ip_timeout', vm_info, __opts__, default=60
-    )
-    boot_timeout = config.get_cloud_config_value(
-        'boot_timeout', vm_info, __opts__, default=60 * 1000
-    )
-    power = config.get_cloud_config_value(
-        'power_on', vm_info, __opts__, default=False
-    )
-    key_filename = config.get_cloud_config_value(
-        'private_key', vm_info, __opts__, search_global=False, default=None
-    )
+    deploy = config.get_cloud_config_value("deploy", vm_info, __opts__, search_global=False, default=True)
+    wait_for_ip_timeout = config.get_cloud_config_value("wait_for_ip_timeout", vm_info, __opts__, default=60)
+    boot_timeout = config.get_cloud_config_value("boot_timeout", vm_info, __opts__, default=60 * 1000)
+    power = config.get_cloud_config_value("power_on", vm_info, __opts__, default=False)
+    key_filename = config.get_cloud_config_value("private_key", vm_info, __opts__, search_global=False, default=None)
 
     log.debug("Going to fire event: starting create")
 
     # to create the virtual machine.
-    request_kwargs = {
-        'name': vm_info['name'],
-        'clone_from': vm_info['clonefrom']
-    }
-    vb_stop_vm(vm_info['clonefrom'])
-    vb_clone_vm(vm_info['name'], vm_info['clonefrom'])
+    request_kwargs = {"name": vm_info["name"], "clone_from": vm_info["clonefrom"]}
+    vb_stop_vm(vm_info["clonefrom"])
+    vb_clone_vm(vm_info["name"], vm_info["clonefrom"])
 
     # Booting and deploying if needed
     if power:
-        vb_start_vm(vm_info['name'])
-        ip = wait_for(vb_get_vm_address, timeout=60, step=1, default=[], func_kwargs={'name': vm_info['name']})
+        vb_start_vm(vm_info["name"])
+        ip = wait_for(vb_get_vm_address, timeout=60, step=1, default=[], func_kwargs={"name": vm_info["name"]})
 
-        log.info("[ {0} ] IPv4 is: {1}".format(vm_info['name'], ip))
+        log.info("[ {0} ] IPv4 is: {1}".format(vm_info["name"], ip))
         # ssh or smb using ip and install salt only if deploy is True
         if deploy:
-            vm_info['ssh_host'] = ip
-            ret = __utils__['cloud.bootstrap'](vm_info, __opts__)
+            vm_info["ssh_host"] = ip
+            ret = __utils__["cloud.bootstrap"](vm_info, __opts__)
 
     return ret
 
@@ -143,11 +124,8 @@ def list_nodes_full(kwargs=None, call=None):
     @return:
     @rtype:
     """
-    if call == 'action':
-        raise SaltCloudSystemExit(
-            'The list_nodes_full function must be called '
-            'with -f or --function.'
-        )
+    if call == "action":
+        raise SaltCloudSystemExit("The list_nodes_full function must be called " "with -f or --function.")
 
     machines = {}
 
@@ -188,32 +166,18 @@ def list_nodes(kwargs=None, call=None):
     @rtype:
     """
 
-    if call == 'action':
-        raise SaltCloudSystemExit(
-            'The list_nodes function must be called '
-            'with -f or --function.'
-        )
+    if call == "action":
+        raise SaltCloudSystemExit("The list_nodes function must be called " "with -f or --function.")
 
-    attributes = [
-        "id",
-        "image",
-        "size",
-        "state",
-        "private_ips",
-        "public_ips",
-    ]
-    return cloud.list_nodes_select(
-        list_nodes_full('function'), attributes, call,
-    )
+    attributes = ["id", "image", "size", "state", "private_ips", "public_ips"]
+    return cloud.list_nodes_select(list_nodes_full("function"), attributes, call)
 
 
 def list_nodes_select(call=None):
     """
     Return a list of the VMs that are on the provider, with select fields
     """
-    return cloud.list_nodes_select(
-        list_nodes_full('function'), __opts__['query.selection'], call,
-    )
+    return cloud.list_nodes_select(list_nodes_full("function"), __opts__["query.selection"], call)
 
 
 def destroy(name, call=None):
@@ -249,10 +213,8 @@ def start(name, call=None):
     @param call: Must be "action"
     @type call: str
     """
-    if call != 'action':
-        raise SaltCloudSystemExit(
-            'The instance action must be called with -a or --action.'
-        )
+    if call != "action":
+        raise SaltCloudSystemExit("The instance action must be called with -a or --action.")
 
     log.info("Starting machine: %s", name)
     vb_start_vm(name)
@@ -266,10 +228,8 @@ def stop(name, call=None):
     @param call: Must be "action"
     @type call: str
     """
-    if call != 'action':
-        raise SaltCloudSystemExit(
-            'The instance action must be called with -a or --action.'
-        )
+    if call != "action":
+        raise SaltCloudSystemExit("The instance action must be called with -a or --action.")
 
     log.info("Stopping machine: %s", name)
     vb_stop_vm(name)
