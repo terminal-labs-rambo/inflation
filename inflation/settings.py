@@ -1,6 +1,6 @@
 from inflation.derived_settings import APPDIR, SETUPFILEDIR, TESTDIR, MEMTEMPDIR
 
-VERSION = "0.0.3"
+VERSION = "0.0.4.dev"
 PRINT_VERBOSITY = "high"
 EXCLUDED_DIRS = [".DS_Store"]
 PROJECT_NAME = "inflation"
