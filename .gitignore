@@ -1,31 +1,40 @@
-# use glob syntax.
-syntax: glob
+.coverage
+logs
+keys.sh
+id_rsa
+id_rsa.pub
 
-## patterns
-*.orig
-*.tgz
-*.swp
-*.swo
+package-lock.json
+__pycache__
+env
+node_modules
+extra
+.vagrant
+\#*\#
 *~
-*.DS_Store*
-*.vagrant*
-*.pem
-*.pub
+*egg-info
+*.pyc
+*.pex
 
-## paths
-build
-srv/salt/ssh_keys/
-env.sh
-digitalocean.env.sh
-aws.env.sh
-.tmp/
-.downloads
-.rambo-tmp
-keys/
-auth/*
-*/auth
-secrets
-auth/tokens/*
-*.egg-info
-*__pycache__*
-/inflation_resources/compiled_scripts
+maintenance
+run
+tmp
+.tmp
+manifest
+activate.sh
+*keys.sh
+.Trash*
+*.zip
+*nodes
+*nohup.out
+*workingdirs
+*secrets
+*dist
+
+*.terraform
+*terraform.tfstate
+*terraform.tfstate.backup
+*terraform_*.zip
+
+ubuntu-bionic-18.04-cloudimg-console.log
+ubuntu-xenial-16.04-cloudimg-console.log
