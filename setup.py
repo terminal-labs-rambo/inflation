@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='inflation',
-    version='0.0.1.dev',
+    version='0.0.2.dev',
     description='Clusters',
     url='https://github.com/terminal-labs/inflation',
     author='Terminal Labs',
