@@ -6,6 +6,6 @@ EXCLUDED_DIRS = [".DS_Store"]
 PROJECT_NAME = "inflation"
 TEMPDIR = "/tmp"
 TEXTTABLE_STYLE = ["-", "|", "+", "-"]
-DIRS = [f"{TEMPDIR}/pyvirtualboxworkingdirs"]
+DIRS = [f"{TEMPDIR}/inflationworkingdirs"]
 MINIMUM_PYTHON_VERSION = (3, 6, 0)
 COVERAGERC_PATH = f"{APPDIR}/.coveragerc"
