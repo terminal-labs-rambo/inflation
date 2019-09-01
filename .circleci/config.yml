@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/buildpack-deps:18.04
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Mock vagrant
+          command: |
+            sudo bash .circleci/mock_vagrant.sh
