@@ -1,13 +1,13 @@
 import sys
-
-if sys.version_info.major < 3:
-    sys.exit("Python 3 required but lower version found. Aborted.")
-
 from setuptools import setup, find_packages
+
+from inflation.settings import *
+
+assert sys.version_info >= MINIMUM_PYTHON_VERSION
 
 setup(
     name="inflation",
-    version="0.0.2.dev",
+    version=VERSION,
     description="Clusters",
     url="https://github.com/terminal-labs/inflation",
     author="Terminal Labs",
