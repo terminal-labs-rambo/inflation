@@ -12,6 +12,9 @@ HOME = "/vagrant"
 PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
 SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, "..", "inflation-master")
 
+def loadkeys():
+    print("stub load keys")
+
 
 def init():
     directory = HOME + "/.inflation"

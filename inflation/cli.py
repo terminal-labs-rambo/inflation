@@ -5,7 +5,7 @@ import pkg_resources
 
 import click
 
-from inflation.app import init, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver
+from inflation.app import init, loadkeys, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver
 
 PROJECT_NAME = "inflation"
 version = pkg_resources.get_distribution(PROJECT_NAME).version
@@ -23,6 +23,11 @@ def cli(ctx):
 @cli.command("init")
 def init_cmd():
     init()
+
+
+@cli.command("loadkeys")
+def loadkeys_cmd():
+    loadkeys()
 
 
 @cli.command("version")
