@@ -28,6 +28,10 @@ def loadkeys():
     if in_inflation_project():
         if os.path.exists(cwd + "/keys"):
             print("found keys dir")
+            if os.path.exists(cwd + "/inflation-master/auth"):
+                shutil.rmtree(cwd + "/inflation-master/auth", ignore_errors=True)
+            if not os.path.exists(cwd + "/inflation-master/auth"):
+                os.makedirs(cwd + "/inflation-master/auth")
         else:
             print("cant find keys dir")
 
