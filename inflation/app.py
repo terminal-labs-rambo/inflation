@@ -12,8 +12,24 @@ HOME = "/vagrant"
 PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
 SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, "..", "inflation-master")
 
+
+def in_inflation_project():
+    cwd = os.getcwd()
+    if os.path.exists(cwd + "/inflation.conf"):
+        print("found inflation project")
+        return True
+    else:
+        print("does not look like you are in an inflation project")
+        return False
+
+
 def loadkeys():
-    print("stub load keys")
+    cwd = os.getcwd()
+    if in_inflation_project():
+        if os.path.exists(cwd + "/keys"):
+            print("found keys dir")
+        else:
+            print("cant find keys dir")
 
 
 def init():
