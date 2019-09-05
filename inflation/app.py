@@ -16,7 +16,7 @@ SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, "..", "inflation
 def in_inflation_project():
     cwd = os.getcwd()
     if os.path.exists(cwd + "/inflation.conf"):
-        print("found inflation project")
+        print("found inflation project ---- success")
         return True
     else:
         print("does not look like you are in an inflation project")
@@ -27,13 +27,14 @@ def loadkeys():
     cwd = os.getcwd()
     if in_inflation_project():
         if os.path.exists(cwd + "/keys"):
-            print("found keys dir")
+            print("found keys dir ------------- success")
             if os.path.exists(cwd + "/inflation-master/auth"):
                 shutil.rmtree(cwd + "/inflation-master/auth", ignore_errors=True)
+            print("injecting keys ------------- success")
             if not os.path.exists(cwd + "/inflation-master/auth"):
                 os.makedirs(cwd + "/inflation-master/auth")
         else:
-            print("cant find keys dir")
+            print("cant find keys dir ------------- success")
 
 
 def init():
