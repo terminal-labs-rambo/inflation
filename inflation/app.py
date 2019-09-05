@@ -2,6 +2,7 @@ import os
 import sys
 import shutil
 import subprocess
+import yaml
 import urllib.request
 from zipfile import ZipFile
 
@@ -22,6 +23,24 @@ def in_inflation_project():
         print("does not look like you are in an inflation project")
         return False
 
+    
+def replace_in_file(filepath, old, new):
+    f = open(filepath, "r")
+    contents = f.read()
+    f.close()
+    contents = contents.replace("-APITOKEN-","aaaaaaaaaaaa")
+    contents = contents.replace("-DIGITALOCEANPRIVATEKEYPATH-","bbbbbbbbbbbb")
+    f = open(filepath, "w")
+    f.write(contents)
+    f.close()
+
+    
+def scankeys():
+    with open("keys/keys.yaml", 'r') as stream:
+        keysdata = yaml.safe_load(stream)
+        print(keysdata)
+        return keysdata
+
 
 def loadkeys():
     cwd = os.getcwd()
@@ -33,7 +52,13 @@ def loadkeys():
             print("injecting keys ------------- success")
             if not os.path.exists(cwd + "/inflation-master/auth"):
                 os.makedirs(cwd + "/inflation-master/auth")
-                shutil.move(os.path.abspath("keys"), cwd + "/inflation-master/auth")
+                shutil.copytree(os.path.abspath("keys"), cwd + "/inflation-master/auth/keys")
+                url = "https://raw.githubusercontent.com/terminal-labs/inflation/master/inflation_resources/templates/env.sh.template"
+                filename = "auto-generated-env.sh"
+                with urllib.request.urlopen(url) as response, open(filename, "wb") as out_file:
+                    shutil.copyfileobj(response, out_file)
+                keysdata = scankeys()
+                replace_in_file("auto-generated-env.sh", 'old', 'new')
         else:
             print("cant find keys dir ------------- success")
 
