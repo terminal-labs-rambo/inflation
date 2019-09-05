@@ -33,6 +33,7 @@ def loadkeys():
             print("injecting keys ------------- success")
             if not os.path.exists(cwd + "/inflation-master/auth"):
                 os.makedirs(cwd + "/inflation-master/auth")
+                shutil.move(os.path.abspath("keys"), cwd + "/inflation-master/auth")
         else:
             print("cant find keys dir ------------- success")
 
