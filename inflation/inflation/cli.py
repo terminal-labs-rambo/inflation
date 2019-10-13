@@ -1,15 +1,15 @@
 import os
 import sys
 import json
-import pkg_resources
 
 import click
 
 from inflation.app import init, loadkeys, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver
 
 PROJECT_NAME = "inflation"
-version = pkg_resources.get_distribution(PROJECT_NAME).version
 
+
+version = "Inflation, version 0.0.1.dev"
 context_settings = {"help_option_names": ["-h", "--help"]}
 
 
@@ -19,6 +19,9 @@ context_settings = {"help_option_names": ["-h", "--help"]}
 def cli(ctx):
     pass
 
+@click.group(name="system")
+def system_group():
+    return None
 
 @cli.command("init")
 def init_cmd():
@@ -32,7 +35,7 @@ def loadkeys_cmd():
 
 @cli.command("version")
 def version_cmd():
-    print("Inflation, version 0.0.1.dev")
+    print(version)
 
 
 @cli.command("inflate")
@@ -65,5 +68,19 @@ def startvboxserver_cmd():
 def stopvboxserver_cmd():
     stopvboxserver()
 
+@system_group.command(name="version")
+def version_command():
+    print(version)
 
+
+@system_group.command(name="selftest")
+def selftest_command():
+    print("not implemented")
+
+
+@system_group.command(name="selfcoverage")
+def selfcoverage_command():
+    print("not implemented")
+
+cli.add_command(system_group)
 main = cli

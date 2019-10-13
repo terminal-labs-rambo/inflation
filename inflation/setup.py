@@ -8,15 +8,22 @@ assert sys.version_info >= MINIMUM_PYTHON_VERSION
 setup(
     name="inflation",
     version=VERSION,
-    description="Clusters",
+    description="Experimental tool for cluster creation and management",
     url="https://github.com/terminal-labs/inflation",
     author="Terminal Labs",
     author_email="solutions@terminallabs.com",
-    license=license,
-    packages=find_packages(),
-    include_package_data=True,
+    license="see LICENSE file",
+    packages=["inflation"],
     zip_safe=False,
-    install_requires=["click", "pyyaml"],
+    include_package_data=True,
+    install_requires=[
+        "setuptools",
+        "pyyaml",
+        "click",
+        "black",
+        "flake8",
+        "rambo-vagrant",
+    ],
     entry_points="""
         [console_scripts]
         inflation=inflation.cli:main
