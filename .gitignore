@@ -16,6 +16,7 @@ extra
 *.pyc
 *.pex
 
+repos
 maintenance
 run
 tmp
