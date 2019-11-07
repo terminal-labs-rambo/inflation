@@ -141,7 +141,7 @@ def init():
 
 def inflate(filepath):
     process_spec_file(filepath)
-
+    os.chdir("/vagrant/inflation-master")
     set_init_vars(cwd="/vagrant/inflation-master")
     up(provider="digitalocean")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
@@ -150,6 +150,7 @@ def inflate(filepath):
 
 
 def deflate():
+    os.chdir("/vagrant/inflation-master")
     set_init_vars(cwd="/vagrant/inflation-master")
     destroy()
 
