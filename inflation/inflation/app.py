@@ -35,11 +35,36 @@ def replace_in_file(filepath, old, new):
     f.close()
 
 
+def validate_keys_dict():
+    return True
+
+
 def scankeys():
     with open("keys/keys.yaml", 'r') as stream:
         keysdata = yaml.safe_load(stream)
         print(keysdata)
         return keysdata
+
+
+def loadkeysdict(verbosity="high"):
+    def closure_print(data):
+        print(data)
+
+    cwd = os.getcwd()
+    if in_inflation_project():
+        if os.path.exists(os.path.join(cwd, "keys")):
+            closure_print("found keys dir ------------- success")
+            if os.path.exists(os.path.join(cwd, "keys", "keys.yaml")):
+                keys_file = os.path.join(cwd, "keys", "keys.yaml")
+                with open(keys_file, "r") as in_fh:
+                    keys_dict = yaml.safe_load(in_fh)
+                    if isinstance(keys_dict, dict):
+                        if validate_keys_dict():
+                            closure_print("found keys yaml file ------------- success")
+                            closure_print(f"found keys for { len(keys_dict.keys()) } providers ------------- success")
+                            return keys_dict
+        else:
+            closure_print("cant find keys dir ------------- failed")
 
 
 def loadkeys():
@@ -140,10 +165,11 @@ def init():
 
 
 def inflate(filepath):
-    process_spec_file(filepath)
-    os.chdir("/vagrant/inflation-master")
-    set_init_vars(cwd="/vagrant/inflation-master")
-    up(provider="digitalocean")
+    print(loadkeysdict())
+    #process_spec_file(filepath)
+    #os.chdir("/vagrant/inflation-master")
+    #set_init_vars(cwd="/vagrant/inflation-master")
+    #up(provider="digitalocean")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
