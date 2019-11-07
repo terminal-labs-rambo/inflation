@@ -19,6 +19,7 @@ extra
 maintenance
 run
 tmp
+.inflation
 .tmp
 manifest
 activate.sh
