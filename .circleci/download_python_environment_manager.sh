@@ -8,5 +8,4 @@ su -m vagrant <<'EOF'
   rm -rf python-environment-manager-master
   rm master.zip
   cd ..
-  ls
 EOF
