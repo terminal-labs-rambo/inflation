@@ -19,7 +19,6 @@ setup(
     install_requires=[
         "setuptools",
         "utilities-package@git+https://gitlab.com/terminallabs/utilitiespackage/utilities-package.git@master#egg=utilitiespackage&subdirectory=utilitiespackage",
-        "ruamel.yaml",
         "rambo-vagrant",
     ],
     entry_points="""
