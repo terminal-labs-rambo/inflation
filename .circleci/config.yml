@@ -19,16 +19,16 @@ jobs:
       - run:
           name: Install deps
           command: |
-            cd /vagrant; sudo bash maintenance/general/pyenv/install_apt_dependencies.sh inflation vagrant linux
+            cd /vagrant; sudo bash .tmp/python-environment-manager-master/makefile_resources/scripts_python/conda/install_apt_dependencies.sh inflation vagrant linux
       - run:
           name: Install python
           command: |
-            cd /vagrant; sudo bash maintenance/general/pyenv/install_python.sh inflation vagrant linux
+            cd /vagrant; sudo bash .tmp/python-environment-manager-master/makefile_resources/scripts_python/conda/install_python.sh inflation vagrant linux
       - run:
           name: Install app
           command: |
-            cd /vagrant; sudo bash maintenance/general/pyenv/install_app.sh inflation vagrant linux
+            cd /vagrant; sudo bash .tmp/python-environment-manager-master/makefile_resources/scripts_python/conda/install_app.sh inflation vagrant linux
       - run:
           name: Run tests
           command: |
-            cd /vagrant; sudo bash maintenance/general/pyenv/run_tests.sh inflation vagrant linux
+            cd /vagrant; sudo bash .tmp/python-environment-manager-master/makefile_resources/scripts_python/conda/run_tests.sh inflation vagrant linux
