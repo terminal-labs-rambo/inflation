@@ -10,7 +10,7 @@ setup(
     version=VERSION,
     author="Terminal Labs",
     author_email="solutions@terminallabs.com",
-    license="see LICENSE file",
+    license="mit",
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
