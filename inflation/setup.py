@@ -8,8 +8,6 @@ assert sys.version_info >= MINIMUM_PYTHON_VERSION
 setup(
     name="inflation",
     version=VERSION,
-    description="Experimental tool for cluster creation and management",
-    url="https://gitlab.com/terminallabs/mirrors/inflation",
     author="Terminal Labs",
     author_email="solutions@terminallabs.com",
     license="see LICENSE file",
