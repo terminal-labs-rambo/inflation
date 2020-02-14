@@ -20,7 +20,7 @@ setup(
         "utilities-package_cli-metapackage@git+https://gitlab.com/terminallabs/utilitiespackage/metapackages/utilities-package_cli-metapackage.git@master#egg=utilitiespackageclimetapackage&subdirectory=utilitiespackageclimetapackage",
         "keyloader@git+https://gitlab.com/terminallabs/experimental-tools/python_key-loader.git@master#egg=keyloader&subdirectory=keyloader",
         "apiwrapper@git+https://gitlab.com/terminallabs/experimental-tools/python_api-wrapper.git@master#egg=apiwrapper&subdirectory=apiwrapper",
-        "pyOpenSSL[security]",
+        "pyOpenSSL",
     ],
     entry_points="""
         [console_scripts]
