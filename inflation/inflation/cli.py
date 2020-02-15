@@ -4,7 +4,9 @@ import json
 
 import click
 
-from inflation.app import init, loadkeys, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver
+from keyloader.core import loadkeysdict
+
+from inflation.app import init, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver
 
 PROJECT_NAME = "inflation"
 
@@ -41,6 +43,7 @@ def version_cmd():
 @cli.command("inflate")
 @click.argument("filepath")
 def inflate_cmd(filepath):
+    print(loadkeysdict("keys/keys.yaml"))
     inflate(filepath)
 
 
