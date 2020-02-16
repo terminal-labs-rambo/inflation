@@ -2,8 +2,9 @@ from inflation.derived_settings import APPDIR, SETUPFILEDIR, TESTDIR, MEMTEMPDIR
 
 NAME = "inflation"
 
+
 def set_vars():
-    VERSION = "2020.1.1"
+    VERSION = "0.0.1.dev"
     PRINT_VERBOSITY = "high"
     EXCLUDED_DIRS = [".DS_Store"]
     SETUP_NAME = NAME

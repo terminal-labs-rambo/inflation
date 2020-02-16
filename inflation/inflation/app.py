@@ -1,15 +1,13 @@
 import os
-import sys
 import shutil
+import urllib
 import subprocess
-import yaml
 from zipfile import ZipFile
 from configparser import ConfigParser
 
 from inflation.settings import *
 
-from inflation.config_parser import process_spec_file
-from rambo.app import up, destroy, ssh, set_init_vars
+from rambo.app import up, destroy
 
 CONFIGFILE = "inflation.conf"
 
@@ -50,7 +48,7 @@ def _downloader(url, target, filename):
         zipfile = os.path.join(TMPDIR, filename)
         with ZipFile(zipfile) as zf:
             zf.extractall(path=TMPDIR)
-        shutil.move(os.path.abspath(TMPDIR + "/" + filename.replace(".zip","") + "-master"), target)
+        shutil.move(os.path.abspath(TMPDIR + "/" + filename.replace(".zip", "") + "-master"), target)
         os.remove(TMPDIR + "/" + filename)
 
 
@@ -61,29 +59,27 @@ def _create_dirs(dirs):
 
 
 def _copy_specs():
-    full_path_to_metafootballresources = os.path.join(METAFOOTBALL, METAFOOTBALLRESOURCES)
-    if not os.path.exists(full_path_to_metafootballresources):
-        os.makedirs(full_path_to_metafootballresources)
+    def _copy_ops(dirs, files, resourcesdir):
+        if not os.path.exists(resourcesdir):
+            os.makedirs(resourcesdir)
 
-    dirs = [
-        "cluster",
-        "extras",
-        "nodes",
-        "keys"
-    ]
-    for dir in dirs:
-        full_path_to_metafootballresources_dir = os.path.join(full_path_to_metafootballresources, dir)
-        if not os.path.exists(full_path_to_metafootballresources_dir):
-            shutil.copytree(dir, full_path_to_metafootballresources_dir)
+        for dir in dirs:
+            full_path_to_target_dir = os.path.join(resourcesdir, "rootspec", dir)
+            if not os.path.exists(full_path_to_target_dir):
+                shutil.copytree(dir, full_path_to_target_dir)
 
+        for file in files:
+            full_path_to_target_file = os.path.join(resourcesdir, "rootspec", file)
+            if not os.path.exists(full_path_to_target_file):
+                shutil.copy(file, full_path_to_target_file)
+
+    dirs = ["cluster", "extras", "nodes", "keys"]
     files = [
         "hypertop.txt",
         "anti-hypertop.txt",
     ]
-    for file in files:
-        full_path_to_metafootballresources_file = os.path.join(full_path_to_metafootballresources, file)
-        if not os.path.exists(full_path_to_metafootballresources_file):
-            shutil.copy(file, full_path_to_metafootballresources_file)
+    _copy_ops(dirs, files, os.path.join(METAFOOTBALL, METAFOOTBALLRESOURCES))
+    _copy_ops(dirs, files, os.path.join(METAFOOTBALL, CLUSTERMASTER, CLUSTERMASTERRESOURCES))
 
 
 def in_inflation_project():
@@ -99,7 +95,7 @@ def in_inflation_project():
 def read_config():
     config = ConfigParser()
     config.read(CONFIGFILE)
-    print(config.get('inflation-master', 'ramboproject'))
+    print(config.get("inflation-master", "ramboproject"))
 
 
 def init():
@@ -111,9 +107,7 @@ def init():
     _create_dirs(dirs)
 
     _downloader(
-        "https://github.com/terminal-labs/vagrantfiles/archive/master.zip",
-        os.path.join(FOOTBALLRESOURCES, "vagrantfiles"),
-        "vagrantfiles.zip",
+        "https://github.com/terminal-labs/vagrantfiles/archive/master.zip", os.path.join(FOOTBALLRESOURCES, "vagrantfiles"), "vagrantfiles.zip",
     )
 
     _downloader(
@@ -123,9 +117,7 @@ def init():
     )
 
     _downloader(
-        "https://github.com/terminal-labs/rambo_inflation-metafootball/archive/master.zip",
-        METAFOOTBALL,
-        "rambo_inflation-metafootball",
+        "https://github.com/terminal-labs/rambo_inflation-metafootball/archive/master.zip", METAFOOTBALL, "rambo_inflation-metafootball",
     )
 
     _downloader(
@@ -139,7 +131,6 @@ def init():
 
 
 def inflate(filepath):
-    #process_spec_file(filepath)
     os.chdir(METAFOOTBALL)
     up(provider="virtualbox")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")

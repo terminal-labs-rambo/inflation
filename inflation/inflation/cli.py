@@ -1,21 +1,17 @@
-import os
-import sys
-import json
-
 import click
 
-from keyloader.core import loadkeysdict
+from inflation.settings import *
 
 from inflation.app import init, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver, read_config
+from keyloader.core import loadkeysdict
 
 PROJECT_NAME = "inflation"
 
-version = "Inflation, version 0.0.1.dev"
 context_settings = {"help_option_names": ["-h", "--help"]}
 
 
 @click.group(context_settings=context_settings)
-@click.version_option(prog_name=PROJECT_NAME.capitalize(), version=version)
+@click.version_option(prog_name=PROJECT_NAME.capitalize(), version=VERSION)
 @click.pass_context
 def cli(ctx):
     pass
@@ -33,7 +29,7 @@ def init_cmd():
 
 @cli.command("loadkeys")
 def loadkeys_cmd():
-    loadkeys()
+    print(loadkeysdict("keys/keys.yaml"))
 
 
 @cli.command("inflate")
@@ -66,7 +62,7 @@ def stopvboxserver_cmd():
 
 @system_group.command(name="version")
 def version_command():
-    print(version)
+    print(VERSION)
 
 
 @system_group.command(name="selftest")
