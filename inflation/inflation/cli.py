@@ -6,7 +6,7 @@ import click
 
 from keyloader.core import loadkeysdict
 
-from inflation.app import init, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver
+from inflation.app import init, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver, run_modes, read_config
 
 PROJECT_NAME = "inflation"
 
@@ -49,6 +49,8 @@ def inflate_cmd(filepath):
 
 @cli.command("deflate")
 def deflate_cmd():
+    read_config()
+    print(run_modes)
     deflate()
 
 

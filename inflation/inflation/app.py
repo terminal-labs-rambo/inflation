@@ -5,6 +5,7 @@ import subprocess
 import yaml
 import urllib.request
 from zipfile import ZipFile
+from configparser import ConfigParser
 
 from inflation.config_parser import process_spec_file
 from rambo.app import up, destroy, ssh, set_init_vars
@@ -13,6 +14,36 @@ TMPDIR = ".tmp"
 HOME = ".inflation-tmp"
 SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(HOME, "inflation-master")
 
+run_modes = {
+    "mac":{
+        "raw":{
+            "lxc":True,
+            "do":True,
+            "lxc":True,
+            "do":True,
+        },
+        "guest":{
+            "lxc":True,
+            "do":True,
+            "lxc":True,
+            "do":True,
+        },
+    },
+    "linux":{
+        "raw":{
+            "lxc":True,
+            "do":True,
+            "lxc":True,
+            "do":True,
+        },
+        "guest":{
+            "lxc":True,
+            "do":True,
+            "lxc":True,
+            "do":True,
+        },
+    },
+}
 
 def in_inflation_project():
     cwd = os.getcwd()
@@ -35,9 +66,16 @@ def downloader(url, target, filename):
         os.remove(TMPDIR + "/" + filename)
 
 
+def read_config():
+    config = ConfigParser()
+    config.read('inflation.conf')
+    print(config.get('inflation-master', 'ramboproject'))
+
+
 def init():
     dirs = [
-        ".tmp",
+        TMPDIR,
+        HOME,
         os.path.join(HOME, "inflation"),
         os.path.join(HOME, "inflation", "minion_repos"),
         os.path.join(HOME, "inflation", "build"),
@@ -65,6 +103,11 @@ def init():
         os.path.abspath(os.path.join(HOME, "inflation", "simple-vbox-server")),
         "simple-vbox-server.zip",
     )
+
+    dir = os.path.join(HOME, "inflation-master", ".rambo-tmp", ".rambo-tmp")
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
 
 def inflate(filepath):
     #process_spec_file(filepath)
@@ -105,5 +148,4 @@ def stopvboxserver():
     p = subprocess.Popen(["lsof", "-t", "-i:5555"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, err = p.communicate()
     pid = output.decode("utf-8")
-
     os.system("kill " + pid)
