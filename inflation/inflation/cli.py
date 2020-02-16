@@ -6,10 +6,9 @@ import click
 
 from keyloader.core import loadkeysdict
 
-from inflation.app import init, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver, run_modes, read_config
+from inflation.app import init, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver, read_config
 
 PROJECT_NAME = "inflation"
-
 
 version = "Inflation, version 0.0.1.dev"
 context_settings = {"help_option_names": ["-h", "--help"]}
@@ -21,9 +20,11 @@ context_settings = {"help_option_names": ["-h", "--help"]}
 def cli(ctx):
     pass
 
+
 @click.group(name="system")
 def system_group():
     return None
+
 
 @cli.command("init")
 def init_cmd():
@@ -44,24 +45,18 @@ def version_cmd():
 @click.argument("filepath")
 def inflate_cmd(filepath):
     print(loadkeysdict("keys/keys.yaml"))
+    read_config()
     inflate(filepath)
 
 
 @cli.command("deflate")
 def deflate_cmd():
-    read_config()
-    print(run_modes)
     deflate()
 
 
 @cli.command("ssh")
 def ssh_cmd():
     inflation_ssh()
-
-
-@cli.command("startvboxserver")
-def startvboxserver_cmd():
-    startvboxserver()
 
 
 @cli.command("startvboxserver")
