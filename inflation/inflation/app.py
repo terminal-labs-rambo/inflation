@@ -3,7 +3,6 @@ import sys
 import shutil
 import subprocess
 import yaml
-import urllib.request
 from zipfile import ZipFile
 from configparser import ConfigParser
 
@@ -12,10 +11,17 @@ from inflation.settings import *
 from inflation.config_parser import process_spec_file
 from rambo.app import up, destroy, ssh, set_init_vars
 
+CONFIGFILE = "inflation.conf"
+
 TMPDIR = ".tmp"
+RAMBOTMP = ".rambo-tmp"
 INFLATIONTMP = ".inflation-tmp"
+FOOTBALL = "."
 FOOTBALLRESOURCES = ".inflation-football-resources"
 METAFOOTBALL = ".inm-metafootball"
+METAFOOTBALLRESOURCES = ".inflation-metafootball-resources"
+CLUSTERMASTER = ".inm-clustermaster"
+CLUSTERMASTERRESOURCES = ".inm-clustermaster-resources"
 
 
 def _resolve_payload_path():
@@ -32,19 +38,9 @@ def _resolve_payload_path():
 
 
 def _emit_payload():
-    payload_target = METAFOOTBALL + "/.inm-clustermaster/.inm-clustermaster-resources"
+    payload_target = os.path.join(METAFOOTBALL, CLUSTERMASTER, CLUSTERMASTERRESOURCES)
     if not os.path.exists(payload_target):
         shutil.copytree(_resolve_payload_path(), payload_target)
-
-
-def in_inflation_project():
-    cwd = os.getcwd()
-    if os.path.exists(os.path.join(cwd, "inflation.conf")):
-        print("found inflation project ---- success")
-        return True
-    else:
-        print("does not look like you are in an inflation project")
-        return False
 
 
 def _downloader(url, target, filename):
@@ -58,9 +54,51 @@ def _downloader(url, target, filename):
         os.remove(TMPDIR + "/" + filename)
 
 
+def _create_dirs(dirs):
+    for dir in dirs:
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+
+
+def _copy_specs():
+    full_path_to_metafootballresources = os.path.join(METAFOOTBALL, METAFOOTBALLRESOURCES)
+    if not os.path.exists(full_path_to_metafootballresources):
+        os.makedirs(full_path_to_metafootballresources)
+
+    dirs = [
+        "cluster",
+        "extras",
+        "nodes",
+        "keys"
+    ]
+    for dir in dirs:
+        full_path_to_metafootballresources_dir = os.path.join(full_path_to_metafootballresources, dir)
+        if not os.path.exists(full_path_to_metafootballresources_dir):
+            shutil.copytree(dir, full_path_to_metafootballresources_dir)
+
+    files = [
+        "hypertop.txt",
+        "anti-hypertop.txt",
+    ]
+    for file in files:
+        full_path_to_metafootballresources_file = os.path.join(full_path_to_metafootballresources, file)
+        if not os.path.exists(full_path_to_metafootballresources_file):
+            shutil.copy(file, full_path_to_metafootballresources_file)
+
+
+def in_inflation_project():
+    cwd = os.getcwd()
+    if os.path.exists(os.path.join(cwd, CONFIGFILE)):
+        print("found inflation project ---- success")
+        return True
+    else:
+        print("does not look like you are in an inflation project")
+        return False
+
+
 def read_config():
     config = ConfigParser()
-    config.read('inflation.conf')
+    config.read(CONFIGFILE)
     print(config.get('inflation-master', 'ramboproject'))
 
 
@@ -69,14 +107,8 @@ def init():
         TMPDIR,
         INFLATIONTMP,
         FOOTBALLRESOURCES,
-        os.path.join(FOOTBALLRESOURCES, "minion_repos"),
-        os.path.join(FOOTBALLRESOURCES, "build"),
-        os.path.join(FOOTBALLRESOURCES, "bin"),
-        os.path.join(FOOTBALLRESOURCES, "tmp"),
     ]
-    for dir in dirs:
-        if not os.path.exists(dir):
-            os.makedirs(dir)
+    _create_dirs(dirs)
 
     _downloader(
         "https://github.com/terminal-labs/vagrantfiles/archive/master.zip",
@@ -102,14 +134,8 @@ def init():
         "rambo_inflation-clustermaster",
     )
 
-    dirs = [
-        ".inm-metafootball/.inm-metafootball-resources",
-    ]
-    for dir in dirs:
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-
     _emit_payload()
+    _copy_specs()
 
 
 def inflate(filepath):

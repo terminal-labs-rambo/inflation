@@ -36,11 +36,6 @@ def loadkeys_cmd():
     loadkeys()
 
 
-@cli.command("version")
-def version_cmd():
-    print(version)
-
-
 @cli.command("inflate")
 @click.argument("filepath")
 def inflate_cmd(filepath):
@@ -68,6 +63,7 @@ def startvboxserver_cmd():
 def stopvboxserver_cmd():
     stopvboxserver()
 
+
 @system_group.command(name="version")
 def version_command():
     print(version)
@@ -81,6 +77,7 @@ def selftest_command():
 @system_group.command(name="selfcoverage")
 def selfcoverage_command():
     print("not implemented")
+
 
 cli.add_command(system_group)
 main = cli
