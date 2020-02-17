@@ -7,7 +7,7 @@ from configparser import ConfigParser
 
 from inflation.settings import *
 
-from rambo.app import up, destroy
+from rambo.app import up, destroy, ssh, set_init_vars, set_vagrant_vars
 
 CONFIGFILE = "inflation.conf"
 
@@ -131,8 +131,13 @@ def init():
 
 
 def inflate(filepath):
-    os.chdir(METAFOOTBALL)
-    up(provider="virtualbox")
+    os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
+    set_init_vars(
+        cwd="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball",
+        tmpdir_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"
+    )
+    set_vagrant_vars(vagrant_dotfile_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball/.vagrant")
+    up({"provider":"virtualbox", "sync_dir":"/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"})
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
@@ -144,7 +149,11 @@ def deflate():
 
 
 def inflation_ssh():
-    os.chdir(METAFOOTBALL)
+    set_init_vars(
+        cwd="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball",
+        tmpdir_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"
+    )
+    set_vagrant_vars(vagrant_dotfile_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball/.vagrant")
     ssh()
 
 
