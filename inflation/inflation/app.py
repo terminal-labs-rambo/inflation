@@ -144,16 +144,12 @@ def inflate(filepath):
 
 
 def deflate():
-    os.chdir(METAFOOTBALL)
+    os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
     destroy()
 
 
 def inflation_ssh():
-    set_init_vars(
-        cwd="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball",
-        tmpdir_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"
-    )
-    set_vagrant_vars(vagrant_dotfile_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball/.vagrant")
+    os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
     ssh()
 
 
