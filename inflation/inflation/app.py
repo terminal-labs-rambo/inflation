@@ -17,13 +17,22 @@ CONFIGFILE = "inflation.conf"
 
 TMPDIR = ".tmp"
 RAMBOTMP = ".rambo-tmp"
-INFLATIONTMP = ".inflation-tmp"
-FOOTBALL = "."
-FOOTBALLRESOURCES = ".inflation-football-resources"
-METAFOOTBALL = ".inm-metafootball"
-METAFOOTBALLRESOURCES = ".inflation-metafootball-resources"
-CLUSTERMASTER = ".inm-clustermaster"
-CLUSTERMASTERRESOURCES = ".inm-clustermaster-resources"
+
+
+def _create_dir(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+
+def _get(url, target, filename, zipname):
+    if not os.path.exists(target):
+        with urllib.request.urlopen(url) as response, open(filename, "wb") as out_file:
+            shutil.copyfileobj(response, out_file)
+        zipfile = filename
+        with ZipFile(zipfile) as zf:
+            zf.extractall()
+        shutil.move(os.path.abspath(zipname), target)
+        os.remove(filename)
 
 
 def _resolve_payload_path():
@@ -37,23 +46,6 @@ def _resolve_payload_path():
         possible_path = SITEPACKAGESPATH + "/" + PROJECT_NAME
         possible_payload_path = possible_path + payload_name
     return possible_payload_path
-
-
-def _emit_payload():
-    payload_target = os.path.join(METAFOOTBALL, CLUSTERMASTER, CLUSTERMASTERRESOURCES)
-    if not os.path.exists(payload_target):
-        shutil.copytree(_resolve_payload_path(), payload_target)
-
-
-def _downloader(url, target, filename):
-    if not os.path.exists(target):
-        with urllib.request.urlopen(url) as response, open(os.path.join(TMPDIR, filename), "wb") as out_file:
-            shutil.copyfileobj(response, out_file)
-        zipfile = os.path.join(TMPDIR, filename)
-        with ZipFile(zipfile) as zf:
-            zf.extractall(path=TMPDIR)
-        shutil.move(os.path.abspath(TMPDIR + "/" + filename.replace(".zip", "") + "-master"), target)
-        os.remove(TMPDIR + "/" + filename)
 
 
 def _create_dirs(dirs):
@@ -82,8 +74,7 @@ def _copy_specs():
         "hypertop.txt",
         "anti-hypertop.txt",
     ]
-    _copy_ops(dirs, files, os.path.join(METAFOOTBALL, METAFOOTBALLRESOURCES))
-    _copy_ops(dirs, files, os.path.join(METAFOOTBALL, CLUSTERMASTER, CLUSTERMASTERRESOURCES))
+
 
 def in_inflation_project():
     cwd = os.getcwd()
@@ -100,20 +91,6 @@ def read_config():
     config.read(CONFIGFILE)
     print(config.get("inflation-master", "ramboproject"))
 
-
-def _create_dir(directory):
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-def _get(url, target, filename, zipname):
-    if not os.path.exists(target):
-        with urllib.request.urlopen(url) as response, open(filename, "wb") as out_file:
-            shutil.copyfileobj(response, out_file)
-        zipfile = filename
-        with ZipFile(zipfile) as zf:
-            zf.extractall()
-        shutil.move(os.path.abspath(zipname), target)
-        os.remove(filename)
 
 def init():
     _create_dir(os.path.join(HOME, ".inflation"))
@@ -151,10 +128,6 @@ def inflate(filepath):
     os.chdir(INFLATION_MASTER_PATH)
     set_init_vars(cwd=INFLATION_MASTER_PATH, tmpdir_path="/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master")
     up(provider="virtualbox")
-
-    _emit_payload()
-    _copy_specs()
-
 
 def inflate(filepath):
     os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
