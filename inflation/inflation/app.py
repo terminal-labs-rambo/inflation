@@ -7,12 +7,10 @@ from configparser import ConfigParser
 
 from inflation.settings import *
 
-<<<<<<< HEAD
 #HOME = "/vagrant"
 HOME = "."
 PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
 INFLATION_MASTER_PATH = "/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master"
-=======
 from rambo.app import up, destroy, ssh, set_init_vars, set_vagrant_vars
 
 CONFIGFILE = "inflation.conf"
@@ -86,8 +84,6 @@ def _copy_specs():
     ]
     _copy_ops(dirs, files, os.path.join(METAFOOTBALL, METAFOOTBALLRESOURCES))
     _copy_ops(dirs, files, os.path.join(METAFOOTBALL, CLUSTERMASTER, CLUSTERMASTERRESOURCES))
->>>>>>> c94dcad2a759efe8114d19832d6996950c63c21c
-
 
 def in_inflation_project():
     cwd = os.getcwd()
@@ -105,29 +101,6 @@ def read_config():
     print(config.get("inflation-master", "ramboproject"))
 
 
-def init():
-    dirs = [
-        TMPDIR,
-        INFLATIONTMP,
-        FOOTBALLRESOURCES,
-    ]
-    _create_dirs(dirs)
-
-    _downloader(
-        "https://github.com/terminal-labs/vagrantfiles/archive/master.zip", os.path.join(FOOTBALLRESOURCES, "vagrantfiles"), "vagrantfiles.zip",
-    )
-
-    _downloader(
-        "https://github.com/terminal-labs/simple-vbox-server/archive/master.zip",
-        os.path.join(FOOTBALLRESOURCES, "simple-vbox-server"),
-        "simple-vbox-server.zip",
-    )
-
-    _downloader(
-        "https://github.com/terminal-labs/rambo_inflation-metafootball/archive/master.zip", METAFOOTBALL, "rambo_inflation-metafootball",
-    )
-
-<<<<<<< HEAD
 def _create_dir(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -178,12 +151,6 @@ def inflate(filepath):
     os.chdir(INFLATION_MASTER_PATH)
     set_init_vars(cwd=INFLATION_MASTER_PATH, tmpdir_path="/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master")
     up(provider="virtualbox")
-=======
-    _downloader(
-        "https://github.com/terminal-labs/rambo_inflation-clustermaster/archive/master.zip",
-        METAFOOTBALL + "/.inm-clustermaster",
-        "rambo_inflation-clustermaster",
-    )
 
     _emit_payload()
     _copy_specs()
@@ -197,7 +164,7 @@ def inflate(filepath):
     )
     set_vagrant_vars(vagrant_dotfile_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball/.vagrant")
     up({"provider":"virtualbox", "sync_dir":"/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"})
->>>>>>> c94dcad2a759efe8114d19832d6996950c63c21c
+
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")

@@ -17,16 +17,9 @@ setup(
     install_requires=[
         "setuptools<=45",
         "utilities-package@git+https://gitlab.com/terminallabs/utilitiespackage/utilities-package.git@master#egg=utilitiespackage&subdirectory=utilitiespackage",
-<<<<<<< HEAD
         "keyloader@git+https://gitlab.com/terminallabs/experimental-tools/python_key-loader.git@master#egg=keyloader&subdirectory=keyloader",
         "apiwrapper@git+https://gitlab.com/terminallabs/experimental-tools/python_api-wrapper.git@master#egg=apiwrapper&subdirectory=apiwrapper",
         "rambo-vagrant",
-=======
-        "utilities-package_cli-metapackage@git+https://gitlab.com/terminallabs/utilitiespackage/metapackages/utilities-package_cli-metapackage.git@master#egg=utilitiespackageclimetapackage&subdirectory=utilitiespackageclimetapackage",
-        "keyloader@git+https://gitlab.com/terminallabs/experimental-tools/python_key-loader.git@master#egg=keyloader&subdirectory=keyloader",
-        "apiwrapper@git+https://gitlab.com/terminallabs/experimental-tools/python_api-wrapper.git@master#egg=apiwrapper&subdirectory=apiwrapper",
-        "pyOpenSSL",
->>>>>>> c94dcad2a759efe8114d19832d6996950c63c21c
     ],
     entry_points="""
         [console_scripts]
