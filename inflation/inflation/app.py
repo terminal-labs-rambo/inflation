@@ -12,7 +12,7 @@ from rambo.app import up, destroy, ssh, set_init_vars
 #HOME = "/vagrant"
 HOME = "."
 PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
-SALT_MASTER_RAMBO_PROJECT_NAME = os.path.join(PROJECT_LOCATION, "..", "inflation-master")
+INFLATION_MASTER_PATH = "/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master"
 
 
 def in_inflation_project():
@@ -120,7 +120,7 @@ def init():
         "simple-vbox-server-master")
 
     _get("https://github.com/terminal-labs/rambo_inflation-clustermaster/archive/master.zip",
-        os.path.abspath(os.path.join(HOME, "inflation-master")),
+        os.path.abspath(os.path.join(HOME, ".inflation", "inflation-master")),
         "rambo_inflation-clustermaster.zip",
         "rambo_inflation-clustermaster-master")
 
@@ -133,11 +133,11 @@ def init():
 
 
 def inflate(filepath):
-    print(loadkeysdict())
+    #print(loadkeysdict())
     #process_spec_file(filepath)
-    #os.chdir("/vagrant/inflation-master")
-    #set_init_vars(cwd="/vagrant/inflation-master")
-    #up(provider="digitalocean")
+    os.chdir(INFLATION_MASTER_PATH)
+    set_init_vars(cwd=INFLATION_MASTER_PATH, tmpdir_path="/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master")
+    up(provider="virtualbox")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
