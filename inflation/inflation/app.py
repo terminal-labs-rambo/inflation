@@ -7,7 +7,7 @@ from configparser import ConfigParser
 
 from inflation.settings import *
 
-#HOME = "/vagrant"
+# HOME = "/vagrant"
 HOME = "."
 PROJECT_LOCATION = os.path.dirname(os.path.realpath(__file__))
 INFLATION_MASTER_PATH = "/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master"
@@ -99,20 +99,26 @@ def init():
     _create_dir(os.path.join(HOME, ".inflation", "bin"))
     _create_dir(os.path.join(HOME, ".inflation", "tmp"))
 
-    _get("https://github.com/terminal-labs/vagrantfiles/archive/master.zip",
+    _get(
+        "https://github.com/terminal-labs/vagrantfiles/archive/master.zip",
         os.path.abspath(os.path.join(HOME, ".inflation", "vagrantfiles")),
         "vagrantfiles.zip",
-        "vagrantfiles-master")
+        "vagrantfiles-master",
+    )
 
-    _get("https://github.com/terminal-labs/simple-vbox-server/archive/master.zip",
+    _get(
+        "https://github.com/terminal-labs/simple-vbox-server/archive/master.zip",
         os.path.abspath(os.path.join(HOME, ".inflation", "simple-vbox-server")),
         "simple-vbox-server.zip",
-        "simple-vbox-server-master")
+        "simple-vbox-server-master",
+    )
 
-    _get("https://github.com/terminal-labs/rambo_inflation-clustermaster/archive/master.zip",
+    _get(
+        "https://github.com/terminal-labs/rambo_inflation-clustermaster/archive/master.zip",
         os.path.abspath(os.path.join(HOME, ".inflation", "inflation-master")),
         "rambo_inflation-clustermaster.zip",
-        "rambo_inflation-clustermaster-master")
+        "rambo_inflation-clustermaster-master",
+    )
 
     # shutil.move(".inflation/tmp/inflation/inflation-master/inflation_resources", ".inflation/tmp/inflation_resources")
     # if os.path.exists("inflation-master/inflation_resources"):
@@ -123,20 +129,21 @@ def init():
 
 
 def inflate(filepath):
-    #print(loadkeysdict())
-    #process_spec_file(filepath)
+    # print(loadkeysdict())
+    # process_spec_file(filepath)
     os.chdir(INFLATION_MASTER_PATH)
     set_init_vars(cwd=INFLATION_MASTER_PATH, tmpdir_path="/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master")
     up(provider="virtualbox")
+
 
 def inflate(filepath):
     os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
     set_init_vars(
         cwd="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball",
-        tmpdir_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"
+        tmpdir_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball",
     )
     set_vagrant_vars(vagrant_dotfile_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball/.vagrant")
-    up({"provider":"virtualbox", "sync_dir":"/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"})
+    up({"provider": "virtualbox", "sync_dir": "/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"})
 
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
