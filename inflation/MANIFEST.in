@@ -1,1 +1,2 @@
 include inflation/.coveragerc
+recursive-include inflation/payload *.png
