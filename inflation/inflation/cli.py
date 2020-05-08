@@ -2,7 +2,7 @@ import click
 
 from inflation.settings import *
 
-from inflation.app import init, resync, inflate, deflate, inflation_ssh, read_config
+from inflation.app import init, apply_patterns, resync, inflate, deflate, inflation_ssh, read_config
 from keyloader.core import loadkeysdict
 
 PROJECT_NAME = NAME
@@ -25,6 +25,7 @@ def system_group():
 @cli.command("init")
 def init_cmd():
     init()
+    apply_patterns()
 
 
 @cli.command("resync")

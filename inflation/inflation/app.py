@@ -93,10 +93,8 @@ def init():
         "simple-vbox-server.zip",
     )
 
-    apply_pattern()
 
-
-def apply_pattern():
+def apply_patterns():
     hydrate_patterns_std(CONFIGDICT)
     prepare_pattern_resources_std(CONFIGDICT)
 

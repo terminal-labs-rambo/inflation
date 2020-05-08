@@ -21,6 +21,7 @@ def hydrate_patterns_std(CONFIGDICT):
                 PATHS["clustermaster"],
                 "inflation-pattern_rambo-clustermaster.zip",
             )
+            ## merge in repos from link
 
 
 def prepare_pattern_resources_std(CONFIGDICT):
