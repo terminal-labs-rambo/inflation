@@ -1,14 +1,9 @@
-import os
-import shutil
-import urllib
-import subprocess
-from os.path import isdir, dirname, realpath, abspath, join, exists
-from zipfile import ZipFile
-from configparser import ConfigParser
+from os.path import isdir, join, exists
 
-from inflation.utils import _delete_dir, _create_dir, _copy_dir, _create_dirs, _resolve_payload_path, _get_github_repo
+from inflation.utils import _delete_dir, _create_dir, _copy_dir, _get_github_repo
 
 from inflation.settings import *
+
 
 def hydrate_patterns_std(CONFIGDICT):
     HOME = CONFIGDICT["HOME"]
@@ -20,10 +15,7 @@ def hydrate_patterns_std(CONFIGDICT):
     _create_dir(join(tmp_inflation_std, "minion_repos"))
     if not exists(PATHS["clustermaster"]):
         if isdir(files_patterns_std):
-            _copy_dir(
-                files_patterns_std,
-                PATHS["clustermaster"]
-            )
+            _copy_dir(files_patterns_std, PATHS["clustermaster"])
         else:
             _get_github_repo(
                 "https://github.com/terminal-labs/inflation-pattern_rambo-clustermaster/archive/master.zip",
@@ -37,7 +29,4 @@ def prepare_pattern_resources_std(CONFIGDICT):
     PATHS = CONFIGDICT["PATHS"]
     _delete_dir(PATHS["resources"])
     _create_dir(PATHS["resources"])
-    _copy_dir(
-        join(HOME, "keys"),
-        join(PATHS["resources"], "keys")
-    )
+    _copy_dir(join(HOME, "keys"), join(PATHS["resources"], "keys"))

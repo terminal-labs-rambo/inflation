@@ -5,7 +5,7 @@ from inflation.settings import *
 from inflation.app import init, resync, inflate, deflate, inflation_ssh, read_config
 from keyloader.core import loadkeysdict
 
-PROJECT_NAME = "inflation"
+PROJECT_NAME = NAME
 
 context_settings = {"help_option_names": ["-h", "--help"]}
 
@@ -53,16 +53,6 @@ def deflate_cmd():
 @cli.command("ssh")
 def ssh_cmd():
     inflation_ssh()
-
-
-# @cli.command("startvboxserver")
-# def startvboxserver_cmd():
-#     startvboxserver()
-#
-#
-# @cli.command("stopvboxserver")
-# def stopvboxserver_cmd():
-#     stopvboxserver()
 
 
 @system_group.command(name="version")

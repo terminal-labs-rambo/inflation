@@ -1,9 +1,5 @@
 import os
-import shutil
-import urllib
-import subprocess
-from os.path import isdir, dirname, realpath, abspath, join, exists
-from zipfile import ZipFile
+from os.path import dirname, realpath, abspath, join, exists
 from configparser import ConfigParser
 
 from rambo.app import up, destroy, ssh, set_init_vars, set_vagrant_vars
@@ -18,7 +14,7 @@ PROJECT_LOCATION = dirname(realpath(__file__))
 CONFIGFILE = "inflation.conf"
 PATHS = {
     "clustermaster": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster")),
-    "resources": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster", ".resources"))
+    "resources": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster", ".resources")),
 }
 CONFIGDICT = {
     "HOME": HOME,
@@ -89,14 +85,15 @@ def init():
     hydrate_patterns_std(CONFIGDICT)
     prepare_pattern_resources_std(CONFIGDICT)
 
+
 def resync():
     ## stash .vagrant dir
     ## stash .rambo-tmp dir
     ## delete keys dir
     ## delete patterns dir
     init()
-    #hydrate_patterns_std()
-    #prepare_pattern_resources_std()
+    # hydrate_patterns_std()
+    # prepare_pattern_resources_std()
     ## pop .vagrant dir
     ## pop .rambo-tmp dir
 
@@ -132,20 +129,3 @@ def deflate():
 def inflation_ssh():
     os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
     ssh()
-
-
-# def startvboxserver():
-#     subprocess.Popen(
-#         ["python", "vbox-server.py"],
-#         cwd="/home/user/.inflation/simple-vbox-server",
-#         stdin=subprocess.PIPE,
-#         stdout=subprocess.PIPE,
-#         stderr=subprocess.PIPE,
-#     )
-
-
-# def stopvboxserver():
-#     p = subprocess.Popen(["lsof", "-t", "-i:5555"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#     output, err = p.communicate()
-#     pid = output.decode("utf-8")
-#     os.system("kill " + pid)

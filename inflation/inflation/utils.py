@@ -8,6 +8,7 @@ from configparser import ConfigParser
 
 from inflation.settings import *
 
+
 def _delete_dir(directory):
     directory = abspath(directory)
     if exists(directory):
@@ -45,7 +46,7 @@ def _resolve_payload_path():
 
 
 def _get_github_repo(url, target, filename):
-    zipname = filename.replace(".zip","-master")
+    zipname = filename.replace(".zip", "-master")
     if not exists(target):
         with urllib.request.urlopen(url) as response, open(filename, "wb") as out_file:
             shutil.copyfileobj(response, out_file)

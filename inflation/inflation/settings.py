@@ -4,7 +4,7 @@ NAME = "inflation"
 
 
 def set_vars():
-    VERSION = "0.0.5"
+    VERSION = "0.0.6"
     PRINT_VERBOSITY = "high"
     EXCLUDED_DIRS = [".DS_Store"]
     SETUP_NAME = NAME
