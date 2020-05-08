@@ -19,7 +19,7 @@ URLS = {
     "GITHUBBASE": "https://github.com/terminal-labs"
 }
 PATHS = {
-    "clustermaster": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster")),
+    "clustermaster": abspath(join(HOME, ".inflation", "pattern", "std")),
     "resources": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster", ".resources")),
 }
 CONFIGDICT = {
@@ -93,6 +93,10 @@ def init():
         "simple-vbox-server.zip",
     )
 
+    apply_pattern()
+
+
+def apply_pattern():
     hydrate_patterns_std(CONFIGDICT)
     prepare_pattern_resources_std(CONFIGDICT)
 

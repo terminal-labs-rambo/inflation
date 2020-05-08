@@ -12,11 +12,9 @@ def hydrate_patterns_std(CONFIGDICT):
     tmp_inflation_std = join(HOME, ".inflation", "pattern", "std")
     files_patterns_std = join(HOME, "files", "patterns", "std")
 
-    _create_dir(tmp_inflation_std)
-    _create_dir(join(tmp_inflation_std, "minion_repos"))
-    if not exists(PATHS["clustermaster"]):
+    if not exists(tmp_inflation_std):
         if isdir(files_patterns_std):
-            _copy_dir(files_patterns_std, PATHS["clustermaster"])
+            _copy_dir(files_patterns_std, tmp_inflation_std)
         else:
             _get_github_repo(
                 URLS["GITHUBBASE"] + "/" + "inflation-pattern_rambo-clustermaster",
