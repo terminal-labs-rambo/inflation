@@ -2,7 +2,7 @@ import click
 
 from inflation.settings import *
 
-from inflation.app import init, inflate, deflate, inflation_ssh, startvboxserver, stopvboxserver, read_config
+from inflation.app import init, resync, inflate, deflate, inflation_ssh, read_config
 from keyloader.core import loadkeysdict
 
 PROJECT_NAME = "inflation"
@@ -25,6 +25,11 @@ def system_group():
 @cli.command("init")
 def init_cmd():
     init()
+
+
+@cli.command("resync")
+def resync_cmd():
+    resync()
 
 
 @cli.command("loadkeys")
@@ -50,14 +55,14 @@ def ssh_cmd():
     inflation_ssh()
 
 
-@cli.command("startvboxserver")
-def startvboxserver_cmd():
-    startvboxserver()
-
-
-@cli.command("stopvboxserver")
-def stopvboxserver_cmd():
-    stopvboxserver()
+# @cli.command("startvboxserver")
+# def startvboxserver_cmd():
+#     startvboxserver()
+#
+#
+# @cli.command("stopvboxserver")
+# def stopvboxserver_cmd():
+#     stopvboxserver()
 
 
 @system_group.command(name="version")
