@@ -8,10 +8,16 @@ from inflation.utils import _delete_dir, _create_dir, _copy_dir, _create_dirs, _
 
 from inflation.settings import *
 
+## "/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master"
+## "/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master"
+
 # HOME = "/vagrant"
 HOME = "."
 PROJECT_LOCATION = dirname(realpath(__file__))
 CONFIGFILE = "inflation.conf"
+URLS = {
+    "GITHUBBASE": "https://github.com/terminal-labs"
+}
 PATHS = {
     "clustermaster": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster")),
     "resources": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster", ".resources")),
@@ -20,6 +26,7 @@ CONFIGDICT = {
     "HOME": HOME,
     "PROJECT_LOCATION": PROJECT_LOCATION,
     "CONFIGFILE": CONFIGFILE,
+    "URLS": URLS,
     "PATHS": PATHS,
 }
 
@@ -63,21 +70,25 @@ def read_config():
 
 
 def init():
-    _create_dir(join(HOME, ".inflation"))
-    _create_dir(join(HOME, ".inflation", "repo"))
-    _create_dir(join(HOME, ".inflation", "build"))
-    _create_dir(join(HOME, ".inflation", "bin"))
-    _create_dir(join(HOME, ".inflation", "tmp"))
-    _create_dir(join(HOME, ".inflation", "pattern"))
+    _create_dirs(
+        [
+            join(HOME, ".inflation"),
+            join(HOME, ".inflation", "repo"),
+            join(HOME, ".inflation", "build"),
+            join(HOME, ".inflation", "bin"),
+            join(HOME, ".inflation", "tmp"),
+            join(HOME, ".inflation", "pattern"),
+        ]
+    )
 
     _get_github_repo(
-        "https://github.com/terminal-labs/vagrantfiles/archive/master.zip",
+        URLS["GITHUBBASE"] + "/" + "vagrantfiles",
         abspath(join(HOME, ".inflation", "repo", "vagrantfiles")),
         "vagrantfiles.zip",
     )
 
     _get_github_repo(
-        "https://github.com/terminal-labs/simple-vbox-server/archive/master.zip",
+        URLS["GITHUBBASE"] + "/" + "simple-vbox-server",
         abspath(join(HOME, ".inflation", "repo", "simple-vbox-server")),
         "simple-vbox-server.zip",
     )
@@ -101,20 +112,20 @@ def resync():
 def inflate(filepath):
     # print(loadkeysdict())
     # process_spec_file(filepath)
-    INFLATION_MASTER_PATH = "/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master"
-    os.chdir(INFLATION_MASTER_PATH)
-    set_init_vars(cwd=INFLATION_MASTER_PATH, tmpdir_path="/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master")
-    up(provider="virtualbox")
-
+    #INFLATION_MASTER_PATH = ""
+    #os.chdir(INFLATION_MASTER_PATH)
+    #set_init_vars(cwd=INFLATION_MASTER_PATH, tmpdir_path="")
+    #up(provider="virtualbox")
+    pass
 
 # def inflate(filepath):
-#     os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
+#     os.chdir("")
 #     set_init_vars(
-#         cwd="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball",
-#         tmpdir_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball",
+#         cwd="",
+#         tmpdir_path="",
 #     )
-#     set_vagrant_vars(vagrant_dotfile_path="/Users/mike/Desktop/sample-project_inflation/.inm-metafootball/.vagrant")
-#     up({"provider": "virtualbox", "sync_dir": "/Users/mike/Desktop/sample-project_inflation/.inm-metafootball"})
+#     set_vagrant_vars(vagrant_dotfile_path="")
+#     up({"provider": "virtualbox", "sync_dir": ""})
 #
 #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
 #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
@@ -122,10 +133,10 @@ def inflate(filepath):
 
 
 def deflate():
-    os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
+    os.chdir("")
     destroy()
 
 
 def inflation_ssh():
-    os.chdir("/Users/mike/Desktop/sample-project_inflation/.inm-metafootball")
+    os.chdir("")
     ssh()

@@ -27,9 +27,7 @@ def _copy_dir(source, target):
 
 def _create_dirs(dirs):
     for dir in dirs:
-        dir = abspath(dir)
-        if not exists(dir):
-            os.makedirs(dir)
+        _create_dir(dir)
 
 
 def _resolve_payload_path():
@@ -47,6 +45,7 @@ def _resolve_payload_path():
 
 def _get_github_repo(url, target, filename):
     zipname = filename.replace(".zip", "-master")
+    url = url + "/archive/master.zip"
     if not exists(target):
         with urllib.request.urlopen(url) as response, open(filename, "wb") as out_file:
             shutil.copyfileobj(response, out_file)

@@ -6,6 +6,7 @@ from inflation.settings import *
 
 
 def hydrate_patterns_std(CONFIGDICT):
+    URLS = CONFIGDICT["URLS"]
     HOME = CONFIGDICT["HOME"]
     PATHS = CONFIGDICT["PATHS"]
     tmp_inflation_std = join(HOME, ".inflation", "pattern", "std")
@@ -18,7 +19,7 @@ def hydrate_patterns_std(CONFIGDICT):
             _copy_dir(files_patterns_std, PATHS["clustermaster"])
         else:
             _get_github_repo(
-                "https://github.com/terminal-labs/inflation-pattern_rambo-clustermaster/archive/master.zip",
+                URLS["GITHUBBASE"] + "/" + "inflation-pattern_rambo-clustermaster",
                 PATHS["clustermaster"],
                 "inflation-pattern_rambo-clustermaster.zip",
             )
