@@ -2,7 +2,7 @@ import os
 from os.path import dirname, realpath, abspath, join, exists
 from configparser import ConfigParser
 
-from rambo.app import up, destroy, ssh, set_init_vars, set_vagrant_vars
+from rambo.app import up, destroy, ssh
 from inflation.patterns.std import hydrate_patterns_std, prepare_pattern_resources_std
 from inflation.utils import _delete_dir, _create_dir, _copy_dir, _create_dirs, _resolve_payload_path, _get_github_repo
 
