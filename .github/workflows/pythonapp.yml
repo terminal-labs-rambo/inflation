@@ -13,10 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install dependencies
+    - name: Full build
       run: |
-        ls
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        echo "test1"
+      sudo bash .gitlabci/mock_vagrant.sh
+      sudo bash .gitlabci/download_python_environment_manager.sh
