@@ -15,5 +15,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: Full build
       run: |
-      sudo bash .repo/mock_vagrant.sh
-      sudo bash .repo/download_python_environment_manager.sh
+        sudo bash .repo/mock_vagrant.sh
+        sudo bash .repo/download_python_environment_manager.sh
