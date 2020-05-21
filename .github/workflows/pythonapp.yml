@@ -14,7 +14,7 @@ jobs:
     steps:
     - name: Install dependencies
       run: |
-        sudo bash .repo/mock_vagrant.sh
+        ls
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
