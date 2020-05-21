@@ -33,6 +33,7 @@ activate.sh
 *secrets
 *dist
 inflation-master
+Vagrantfile
 *.terraform
 *terraform.tfstate
 *terraform.tfstate.backup
