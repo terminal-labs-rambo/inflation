@@ -15,9 +15,8 @@ setup(
     zip_safe=False,
     include_package_data=True,
     install_requires=[
+        "setuptools",
         "standardmodel@git+https://github.com/terminal-labs/standardmodel.git",
-        "keyloader@git+https://gitlab.com/terminallabs/experimental-tools/python_key-loader.git@master#egg=keyloader&subdirectory=keyloader",
-        "apiwrapper@git+https://gitlab.com/terminallabs/experimental-tools/python_api-wrapper.git@master#egg=apiwrapper&subdirectory=apiwrapper",
     ],
     entry_points="""
         [console_scripts]
