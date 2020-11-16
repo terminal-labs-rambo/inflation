@@ -17,6 +17,7 @@ setup(
     install_requires=[
         "setuptools",
         "standardmodel@git+https://github.com/terminal-labs/standardmodel.git",
+        "rambo-vagrant@git+https://github.com/terminal-labs/rambo.git",    
     ],
     entry_points="""
         [console_scripts]
