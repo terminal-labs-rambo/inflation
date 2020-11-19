@@ -12,6 +12,14 @@ from jinja2 import Environment, BaseLoader
 from ruamel import yaml
 
 
+def keydriver_digitalocean():
+    pass
+
+
+def keydriver_aws():
+    pass
+
+
 def replace_in_file(filepath, old, new):
     f = open(filepath, "r")
     contents = f.read()
