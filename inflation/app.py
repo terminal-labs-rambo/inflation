@@ -114,10 +114,9 @@ def resync():
 def inflate(filepath):
     # print(loadkeysdict())
     # process_spec_file(filepath)
-    #INFLATION_MASTER_PATH = ""
-    #os.chdir(INFLATION_MASTER_PATH)
-    #set_init_vars(cwd=INFLATION_MASTER_PATH, tmpdir_path="")
-    #up(provider="virtualbox")
+    INFLATION_MASTER_PATH = "."
+    os.chdir(INFLATION_MASTER_PATH)
+    up(provider="virtualbox", tmpdir="/Users/mike/Desktop/fuzzball_work/fuzzball-states/.tmp/artifacts/inflation_demo/.tmp")
     pass
 
 # def inflate(filepath):
@@ -135,10 +134,12 @@ def inflate(filepath):
 
 
 def deflate():
-    os.chdir("")
-    destroy()
+    INFLATION_MASTER_PATH = "."
+    os.chdir(INFLATION_MASTER_PATH)
+    destroy(provider="virtualbox", tmpdir="/Users/mike/Desktop/fuzzball_work/fuzzball-states/.tmp/artifacts/inflation_demo/.tmp")
 
 
 def inflation_ssh():
-    os.chdir("")
-    ssh()
+    INFLATION_MASTER_PATH = "."
+    os.chdir(INFLATION_MASTER_PATH)
+    ssh(provider="virtualbox", tmpdir="/Users/mike/Desktop/fuzzball_work/fuzzball-states/.tmp/artifacts/inflation_demo/.tmp")
