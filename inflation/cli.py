@@ -3,7 +3,7 @@ import click
 from inflation.settings import *
 
 from inflation.app import init, apply_patterns, resync, inflate, deflate, inflation_ssh, read_config
-from keyloader.core import loadkeysdict
+from inflation.stubs.domainwall import loadkeysdict
 
 PROJECT_NAME = NAME
 
