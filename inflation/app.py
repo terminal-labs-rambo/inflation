@@ -9,18 +9,20 @@ from inflation.settings import *
 
 HOME = "."
 PROJECT_LOCATION = dirname(realpath(__file__))
-URLS = {
-    "GITHUBBASE": "https://github.com/terminal-labs"
-}
-PATHS = {
-    "clustermaster": abspath(join(HOME, ".inflation", "pattern", "std")),
-    "resources": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster", ".resources")),
-}
+inflation_master_path = abspath(join(HOME, ".tmp", "artifacts", "nucleation"))
+inflation_master_tmp = abspath(join(inflation_master_path, ".tmp"))
+# URLS = {
+#     "GITHUBBASE": "https://github.com/terminal-labs"
+# }
+# PATHS = {
+#     "clustermaster": abspath(join(HOME, ".inflation", "pattern", "std")),
+#     "resources": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster", ".resources")),
+# }
 CONFIGDICT = {
     "HOME": HOME,
     "PROJECT_LOCATION": PROJECT_LOCATION,
-    "URLS": URLS,
-    "PATHS": PATHS,
+    #"URLS": URLS,
+    #"PATHS": PATHS,
 }
 
 
@@ -54,36 +56,45 @@ def inflate(filepath):
     # print(loadkeysdict())
     # process_spec_file(filepath)
     _create_dir(".tmp")
+
     _get_github_repo(
         "https://github.com/terminal-labs/vagrantfiles",
-        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/vagrantfiles.zip",
-        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/vagrantfiles.zip"
+        abspath(join(HOME, ".tmp", "vagrantfiles.zip")),
+        abspath(join(HOME, ".tmp", "vagrantfiles.zip")),
+        abspath(join(HOME, ".tmp"))
     )
     _get_github_repo(
         "https://github.com/terminal-labs/simple-vbox-server",
-        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/simple-vbox-server.zip",
-        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/simple-vbox-server.zip"
+        abspath(join(HOME, ".tmp", "simple-vbox-server.zip")),
+        abspath(join(HOME, ".tmp", "simple-vbox-server.zip")),
+        abspath(join(HOME, ".tmp"))
     )
     _get_github_repo(
         "https://github.com/terminal-labs/nucleation",
-        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/nucleation.zip",
-        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/nucleation.zip"
+        abspath(join(HOME, ".tmp", "nucleation.zip")),
+        abspath(join(HOME, ".tmp", "nucleation.zip")),
+        abspath(join(HOME, ".tmp"))
     )
-    #INFLATION_MASTER_PATH = "."
-    #os.chdir(INFLATION_MASTER_PATH)
-    #up(provider="virtualbox", tmpdir="/Users/mike/Desktop/inflation_work/inflation-states/.tmp/artifacts/inflation_demo/.tmp")
+
+    _create_dir(".tmp/artifacts")
+    _copy_dir(abspath(join(HOME, ".tmp", "nucleation-master")), inflation_master_path)
+
+    _create_dir(inflation_master_tmp)
+    _copy_dir(abspath(join(HOME, "auth")), abspath(join(HOME, ".tmp", "auth")))
+    _copy_dir(abspath(join(HOME, "auth")), abspath(join(inflation_master_tmp, "auth")))
+
+    os.chdir(inflation_master_path)
+    up(provider="virtualbox", tmpdir=inflation_master_tmp)
     #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
 
 
 def deflate():
-    INFLATION_MASTER_PATH = "."
-    os.chdir(INFLATION_MASTER_PATH)
-    destroy(provider="virtualbox", tmpdir="/Users/mike/Desktop/inflation_work/inflation-states/.tmp/artifacts/inflation_demo/.tmp")
+    os.chdir(inflation_master_path)
+    destroy(provider="virtualbox", tmpdir=inflation_master_tmp)
 
 
 def inflation_ssh():
-    INFLATION_MASTER_PATH = "."
-    os.chdir(INFLATION_MASTER_PATH)
-    ssh(provider="virtualbox", tmpdir="/Users/mike/Desktop/inflation_work/inflation-states/.tmp/artifacts/inflation_demo/.tmp")
+    os.chdir(inflation_master_path)
+    ssh(provider="virtualbox", tmpdir=inflation_master_tmp)

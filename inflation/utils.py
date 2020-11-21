@@ -22,7 +22,8 @@ def _create_dir(directory):
 
 
 def _copy_dir(source, target):
-    shutil.copytree(abspath(source), abspath(target))
+    if not exists(target):
+        shutil.copytree(abspath(source), abspath(target))
 
 
 def _create_dirs(dirs):
@@ -43,14 +44,12 @@ def _resolve_payload_path():
     return possible_payload_path
 
 
-def _get_github_repo(url, target, filename):
+def _get_github_repo(url, target, filename, extract):
     zipname = filename.replace(".zip", "-master")
     url = url + "/archive/master.zip"
     if not exists(target):
         with urllib.request.urlopen(url) as response, open(filename, "wb") as out_file:
             shutil.copyfileobj(response, out_file)
         zipfile = filename
-        # with ZipFile(zipfile) as zf:
-        #     zf.extractall()
-        # shutil.move(abspath(zipname), target)
-        # os.remove(filename)
+        with ZipFile(zipfile) as zf:
+            zf.extractall(path=extract)

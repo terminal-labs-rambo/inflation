@@ -22,14 +22,14 @@ def system_group():
     return None
 
 
-@cli.command("resync")
-def resync_cmd():
-    resync()
-
-
-@cli.command("loadkeys")
-def loadkeys_cmd():
-    print(loadkeysdict("keys/keys.yaml"))
+# @cli.command("resync")
+# def resync_cmd():
+#     resync()
+#
+#
+# @cli.command("loadkeys")
+# def loadkeys_cmd():
+#     print(loadkeysdict("keys/keys.yaml"))
 
 
 @cli.command("inflate")
