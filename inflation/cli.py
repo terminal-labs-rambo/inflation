@@ -2,7 +2,7 @@ import click
 
 from inflation.settings import *
 
-from inflation.app import init, apply_patterns, resync, inflate, deflate, inflation_ssh, read_config
+from inflation.app import resync, inflate, deflate, inflation_ssh
 from inflation.stubs.domainwall import loadkeysdict
 
 PROJECT_NAME = NAME
@@ -22,12 +22,6 @@ def system_group():
     return None
 
 
-@cli.command("init")
-def init_cmd():
-    init()
-    apply_patterns()
-
-
 @cli.command("resync")
 def resync_cmd():
     resync()
@@ -42,7 +36,6 @@ def loadkeys_cmd():
 @click.argument("filepath")
 def inflate_cmd(filepath):
     print(loadkeysdict("keys/keys.yaml"))
-    read_config()
     inflate(filepath)
 
 

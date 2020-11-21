@@ -3,18 +3,12 @@ from os.path import dirname, realpath, abspath, join, exists
 from configparser import ConfigParser
 
 from rambo.app import up, destroy, ssh
-from inflation.patterns.std import hydrate_patterns_std, prepare_pattern_resources_std
 from inflation.utils import _delete_dir, _create_dir, _copy_dir, _create_dirs, _resolve_payload_path, _get_github_repo
 
 from inflation.settings import *
 
-## "/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master"
-## "/Users/mike/Desktop/inflation_vmware-cluster/.inflation/inflation-master"
-
-# HOME = "/vagrant"
 HOME = "."
 PROJECT_LOCATION = dirname(realpath(__file__))
-CONFIGFILE = "inflation.conf"
 URLS = {
     "GITHUBBASE": "https://github.com/terminal-labs"
 }
@@ -25,7 +19,6 @@ PATHS = {
 CONFIGDICT = {
     "HOME": HOME,
     "PROJECT_LOCATION": PROJECT_LOCATION,
-    "CONFIGFILE": CONFIGFILE,
     "URLS": URLS,
     "PATHS": PATHS,
 }
@@ -53,93 +46,44 @@ CONFIGDICT = {
 #     ]
 
 
-def in_inflation_project():
-    cwd = os.getcwd()
-    if exists(join(cwd, CONFIGFILE)):
-        print("found inflation project ---- success")
-        return True
-    else:
-        print("does not look like you are in an inflation project")
-        return False
-
-
-def read_config():
-    config = ConfigParser()
-    config.read(CONFIGFILE)
-    print(config.get("inflation-master", "ramboproject"))
-
-
-def init():
-    _create_dirs(
-        [
-            join(HOME, ".inflation"),
-            join(HOME, ".inflation", "repo"),
-            join(HOME, ".inflation", "build"),
-            join(HOME, ".inflation", "bin"),
-            join(HOME, ".inflation", "tmp"),
-            join(HOME, ".inflation", "pattern"),
-        ]
-    )
-
-    _get_github_repo(
-        URLS["GITHUBBASE"] + "/" + "vagrantfiles",
-        abspath(join(HOME, ".inflation", "repo", "vagrantfiles")),
-        "vagrantfiles.zip",
-    )
-
-    _get_github_repo(
-        URLS["GITHUBBASE"] + "/" + "simple-vbox-server",
-        abspath(join(HOME, ".inflation", "repo", "simple-vbox-server")),
-        "simple-vbox-server.zip",
-    )
-
-
-def apply_patterns():
-    hydrate_patterns_std(CONFIGDICT)
-    prepare_pattern_resources_std(CONFIGDICT)
-
-
 def resync():
-    ## stash .vagrant dir
-    ## stash .rambo-tmp dir
-    ## delete keys dir
-    ## delete patterns dir
-    init()
-    # hydrate_patterns_std()
-    # prepare_pattern_resources_std()
-    ## pop .vagrant dir
-    ## pop .rambo-tmp dir
+    pass
 
 
 def inflate(filepath):
     # print(loadkeysdict())
     # process_spec_file(filepath)
-    INFLATION_MASTER_PATH = "."
-    os.chdir(INFLATION_MASTER_PATH)
-    up(provider="virtualbox", tmpdir="/Users/mike/Desktop/fuzzball_work/fuzzball-states/.tmp/artifacts/inflation_demo/.tmp")
-    pass
-
-# def inflate(filepath):
-#     os.chdir("")
-#     set_init_vars(
-#         cwd="",
-#         tmpdir_path="",
-#     )
-#     set_vagrant_vars(vagrant_dotfile_path="")
-#     up({"provider": "virtualbox", "sync_dir": ""})
-#
-#     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
-#     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
-#     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
+    _create_dir(".tmp")
+    _get_github_repo(
+        "https://github.com/terminal-labs/vagrantfiles",
+        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/vagrantfiles.zip",
+        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/vagrantfiles.zip"
+    )
+    _get_github_repo(
+        "https://github.com/terminal-labs/simple-vbox-server",
+        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/simple-vbox-server.zip",
+        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/simple-vbox-server.zip"
+    )
+    _get_github_repo(
+        "https://github.com/terminal-labs/nucleation",
+        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/nucleation.zip",
+        "/Users/mike/Desktop/inflation_work/inflation-states/.tmp/nucleation.zip"
+    )
+    #INFLATION_MASTER_PATH = "."
+    #os.chdir(INFLATION_MASTER_PATH)
+    #up(provider="virtualbox", tmpdir="/Users/mike/Desktop/inflation_work/inflation-states/.tmp/artifacts/inflation_demo/.tmp")
+    #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
+    #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
+    #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
 
 
 def deflate():
     INFLATION_MASTER_PATH = "."
     os.chdir(INFLATION_MASTER_PATH)
-    destroy(provider="virtualbox", tmpdir="/Users/mike/Desktop/fuzzball_work/fuzzball-states/.tmp/artifacts/inflation_demo/.tmp")
+    destroy(provider="virtualbox", tmpdir="/Users/mike/Desktop/inflation_work/inflation-states/.tmp/artifacts/inflation_demo/.tmp")
 
 
 def inflation_ssh():
     INFLATION_MASTER_PATH = "."
     os.chdir(INFLATION_MASTER_PATH)
-    ssh(provider="virtualbox", tmpdir="/Users/mike/Desktop/fuzzball_work/fuzzball-states/.tmp/artifacts/inflation_demo/.tmp")
+    ssh(provider="virtualbox", tmpdir="/Users/mike/Desktop/inflation_work/inflation-states/.tmp/artifacts/inflation_demo/.tmp")
