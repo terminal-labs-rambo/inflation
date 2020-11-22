@@ -3,7 +3,7 @@ import click
 from inflation.settings import *
 
 from inflation.app import resync, inflate, deflate, inflation_ssh
-from inflation.stubs.domainwall import loadkeysdict
+from inflation.stubs.domainwall import loadkeys
 
 PROJECT_NAME = NAME
 
@@ -19,7 +19,7 @@ def cli(ctx):
 
 @click.group(name="system")
 def system_group():
-    return None
+    pass
 
 
 # @cli.command("resync")
@@ -27,15 +27,13 @@ def system_group():
 #     resync()
 #
 #
-# @cli.command("loadkeys")
-# def loadkeys_cmd():
-#     print(loadkeysdict("keys/keys.yaml"))
-
+@cli.command("loadkeys")
+def loadkeys_cmd():
+    print(loadkeys())
 
 @cli.command("inflate")
 @click.argument("filepath")
 def inflate_cmd(filepath):
-    print(loadkeysdict("keys/keys.yaml"))
     inflate(filepath)
 
 

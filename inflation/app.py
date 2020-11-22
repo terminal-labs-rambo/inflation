@@ -29,8 +29,8 @@ def _prep_primary_nucleation():
 
     _get_github_repo(
         "https://github.com/terminal-labs/secondary-nucleation",
-        abspath(join(primary_nucleation_tmp, "primary-nucleation.zip")),
-        abspath(join(primary_nucleation_tmp, "primary-nucleation.zip")),
+        abspath(join(primary_nucleation_tmp, "secondary-nucleation.zip")),
+        abspath(join(primary_nucleation_tmp, "secondary-nucleation.zip")),
         primary_nucleation_tmp
     )
 
