@@ -2,7 +2,7 @@ from inflation.derived_settings import APPDIR, SETUPFILEDIR, TESTDIR, MEMTEMPDIR
 
 NAME = "inflation"
 
-VERSION = "0.0.7"
+VERSION = "0.0.8"
 PRINT_VERBOSITY = "high"
 EXCLUDED_DIRS = [".DS_Store"]
 SETUP_NAME = NAME
