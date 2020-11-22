@@ -14,45 +14,11 @@ primary_nucleation_path = abspath(join(HOME, ".tmp", "artifacts", "primary-nucle
 primary_nucleation_tmp = abspath(join(primary_nucleation_path, ".tmp"))
 secondary_nucleation_path = abspath(join(primary_nucleation_tmp, "artifacts", "secondary-nucleation"))
 secondary_nucleation_tmp = abspath(join(secondary_nucleation_path, ".tmp"))
-# URLS = {
-#     "GITHUBBASE": "https://github.com/terminal-labs"
-# }
-# PATHS = {
-#     "clustermaster": abspath(join(HOME, ".inflation", "pattern", "std")),
-#     "resources": abspath(join(HOME, ".inflation", "pattern", "std", "clustermaster", ".resources")),
-# }
+
 CONFIGDICT = {
     "HOME": HOME,
     "PROJECT_LOCATION": PROJECT_LOCATION,
-    #"URLS": URLS,
-    #"PATHS": PATHS,
 }
-
-
-# def _copy_specs():
-#     def _copy_ops(dirs, files, resourcesdir):
-#         if not exists(resourcesdir):
-#             os.makedirs(resourcesdir)
-#
-#         for dir in dirs:
-#             full_path_to_target_dir = join(resourcesdir, "rootspec", dir)
-#             if not exists(full_path_to_target_dir):
-#                 shutil.copytree(dir, full_path_to_target_dir)
-#
-#         for file in files:
-#             full_path_to_target_file = join(resourcesdir, "rootspec", file)
-#             if not exists(full_path_to_target_file):
-#                 shutil.copy(file, full_path_to_target_file)
-#
-#     dirs = ["cluster", "extras", "nodes", "keys"]
-#     files = [
-#         "hypertop.txt",
-#         "anti-hypertop.txt",
-#     ]
-
-
-def resync():
-    pass
 
 
 def _prep_primary_nucleation():
@@ -74,6 +40,10 @@ def _prep_secondary_nucleation():
 
     _create_dir(secondary_nucleation_tmp)
     _copy_dir(abspath(join(HOME, "auth")), abspath(join(secondary_nucleation_tmp, "auth")))
+
+
+def resync():
+    pass
 
 
 def inflate(filepath):
@@ -109,7 +79,15 @@ def inflate(filepath):
     _prep_secondary_nucleation()
 
     os.chdir(primary_nucleation_path)
-    #up(provider="virtualbox", tmpdir=primary_nucleation_tmp)
+    up(
+        tmpdir = primary_nucleation_tmp,
+        provider = 'virtualbox',
+        guest_os = 'ubuntu-1604',
+        ram_size = '4096',
+        sync_dirs = '[["saltstack/etc", "/etc/salt"], ["saltstack/srv", "/srv"]]',
+        sync_type = 'rsync',
+        command = 'bash /vagrant/provision.sh',
+    )
     #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-master.sh'")
     #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-spawn-minions.sh'")
     #     # ssh(command="'sudo bash /vagrant/scripts/salt-cloud-commands-prepare-cluster.sh'")
