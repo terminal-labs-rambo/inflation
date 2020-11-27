@@ -24,4 +24,4 @@ jobs:
       run: |
         sudo bash .repo/mock_vagrant.sh
         sudo bash .repo/download_python_environment_manager.sh
-        cd /vagrant; sudo make conda
+        cd /vagrant; export SUDO_USER=vagrant; sudo make conda
