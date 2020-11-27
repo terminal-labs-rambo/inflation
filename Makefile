@@ -1,5 +1,5 @@
 APPNAME=inflation
-PYTHONVERSION = 3.6.9
+PYTHONVERSION=3.6.9
 
 help:
   @echo "usage: make [command]"
