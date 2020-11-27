@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: bash-environment-manager      
+    - name: Run bash-environment-manager      
       run: |
         sudo bash .repo/mock_vagrant.sh
         sudo bash .repo/download_python_environment_manager.sh
