@@ -1,4 +1,4 @@
-apt install -y wget unzip make
+apt install -y wget unzip make build-essential
 su -m vagrant <<'EOF'
   cd /vagrant
   mkdir -p .tmp
