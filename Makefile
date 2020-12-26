@@ -1,5 +1,6 @@
 APPNAME=inflation
 PYTHONVERSION=3.6.9
+EXTRAS="none"
 
 help:
 	@echo "usage: make [command]"
@@ -12,7 +13,7 @@ download_bash_environment_manager:
 	fi
 
 conda: download_bash_environment_manager
-	@sudo bash .tmp/bash-environment-manager-master/types/python/assemble.sh $(APPNAME) $(SUDO_USER) computed conda
+	@sudo bash .tmp/bash-environment-manager-master/types/python/assemble.sh $(APPNAME) $(SUDO_USER) conda
 	@sudo bash .tmp/bash-environment-manager-master/types/python/emit_activate.sh $(APPNAME) $(SUDO_USER) computed conda
 
 vagrant.conda: download_bash_environment_manager
