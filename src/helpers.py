@@ -6,8 +6,6 @@ from os.path import isdir, dirname, realpath, abspath, join, exists
 from zipfile import ZipFile
 from configparser import ConfigParser
 
-from inflation.settings import *
-
 def _get_github_repo(url, target, filename, extract):
     zipname = filename.replace(".zip", "-master")
     url = url + "/archive/master.zip"

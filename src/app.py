@@ -1,12 +1,22 @@
 import os
 
 from os.path import dirname, realpath, abspath, join, exists
-from configparser import ConfigParser
 
 from rambo.app import up, destroy, ssh
-from inflation.utils import _delete_dir, _create_dir, _copy_dir, _create_dirs, _resolve_payload_path, _get_github_repo
 
-from inflation.settings import *
+with open(os.path.dirname(__file__) + "/framework/loader.py") as f:
+    code = compile(f.read(), "loader.py", "exec")
+    exec(code)
+
+_pgk_name = _get_pgk_name()
+NAME = _import_fun(f"{_pgk_name}.framework.settings", "NAME")
+
+_delete_dir = _import_fun(f"{_pgk_name}.utils", "_delete_dir")
+_create_dir = _import_fun(f"{_pgk_name}.utils", "_create_dir")
+_copy_dir = _import_fun(f"{_pgk_name}.utils", "_copy_dir")
+_create_dirs = _import_fun(f"{_pgk_name}.utils", "_create_dirs")
+_resolve_payload_path = _import_fun(f"{_pgk_name}.utils", "_resolve_payload_path")
+_get_github_repo = _import_fun(f"{_pgk_name}.utils", "_get_github_repo")
 
 HOME = "."
 PROJECT_LOCATION = dirname(realpath(__file__))
@@ -14,12 +24,6 @@ primary_nucleation_path = abspath(join(HOME, ".tmp", "artifacts", "primary-nucle
 primary_nucleation_tmp = abspath(join(primary_nucleation_path, ".tmp"))
 secondary_nucleation_path = abspath(join(primary_nucleation_tmp, "artifacts", "secondary-nucleation"))
 secondary_nucleation_tmp = abspath(join(secondary_nucleation_path, ".tmp"))
-
-CONFIGDICT = {
-    "HOME": HOME,
-    "PROJECT_LOCATION": PROJECT_LOCATION,
-}
-
 
 def _prep_primary_nucleation():
     _copy_dir(abspath(join(HOME, ".tmp", "primary-nucleation-master")), primary_nucleation_path)
