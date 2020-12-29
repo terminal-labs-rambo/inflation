@@ -26,21 +26,36 @@ secondary_nucleation_path = abspath(join(primary_nucleation_tmp, "artifacts", "s
 secondary_nucleation_tmp = abspath(join(secondary_nucleation_path, ".tmp"))
 
 def _prep_primary_nucleation():
-    _copy_dir(abspath(join(HOME, ".tmp", "primary-nucleation-master")), primary_nucleation_path)
-
-    _create_dir(primary_nucleation_tmp)
+    _copy_dir(abspath(join(HOME, ".tmp", "unzipped", "primary-nucleation-master")), primary_nucleation_path)
+    _create_dirs(
+        [
+            primary_nucleation_tmp,
+            primary_nucleation_tmp + "/download",
+            primary_nucleation_tmp + "/artifact",
+            primary_nucleation_tmp + "/bin",
+            primary_nucleation_tmp + "/clone",
+            primary_nucleation_tmp + "/data",
+            primary_nucleation_tmp + "/repo",
+            primary_nucleation_tmp + "/repos",
+            primary_nucleation_tmp + "/scratch",
+            primary_nucleation_tmp + "/script",
+            primary_nucleation_tmp + "/symlink",
+            primary_nucleation_tmp + "/unzipped",
+            primary_nucleation_tmp + "/var",
+        ]
+    )
     _copy_dir(abspath(join(HOME, "auth")), abspath(join(primary_nucleation_tmp, "auth")))
 
     _get_github_repo(
         "https://github.com/terminal-labs/secondary-nucleation",
-        abspath(join(primary_nucleation_tmp, "secondary-nucleation.zip")),
-        abspath(join(primary_nucleation_tmp, "secondary-nucleation.zip")),
-        primary_nucleation_tmp
+        abspath(join(primary_nucleation_tmp, "download", "secondary-nucleation.zip")),
+        abspath(join(primary_nucleation_tmp, "download", "secondary-nucleation.zip")),
+        primary_nucleation_tmp + "/unzipped"
     )
 
 
 def _prep_secondary_nucleation():
-    _copy_dir(abspath(join(primary_nucleation_tmp, "secondary-nucleation-master")), secondary_nucleation_path)
+    _copy_dir(abspath(join(primary_nucleation_tmp, "unzipped", "secondary-nucleation-master")), secondary_nucleation_path)
 
     _create_dir(secondary_nucleation_tmp)
     _copy_dir(abspath(join(HOME, "auth")), abspath(join(secondary_nucleation_tmp, "auth")))
@@ -57,21 +72,21 @@ def inflate(filepath):
 
     _get_github_repo(
         "https://github.com/terminal-labs/vagrantfiles",
-        abspath(join(HOME, ".tmp", "vagrantfiles.zip")),
-        abspath(join(HOME, ".tmp", "vagrantfiles.zip")),
-        abspath(join(HOME, ".tmp"))
+        abspath(join(HOME, ".tmp", "download", "vagrantfiles.zip")),
+        abspath(join(HOME, ".tmp", "download", "vagrantfiles.zip")),
+        abspath(join(HOME, ".tmp", "unzipped"))
     )
     _get_github_repo(
         "https://github.com/terminal-labs/simple-vbox-server",
-        abspath(join(HOME, ".tmp", "simple-vbox-server.zip")),
-        abspath(join(HOME, ".tmp", "simple-vbox-server.zip")),
-        abspath(join(HOME, ".tmp"))
+        abspath(join(HOME, ".tmp", "download", "simple-vbox-server.zip")),
+        abspath(join(HOME, ".tmp", "download", "simple-vbox-server.zip")),
+        abspath(join(HOME, ".tmp", "unzipped"))
     )
     _get_github_repo(
         "https://github.com/terminal-labs/primary-nucleation",
-        abspath(join(HOME, ".tmp", "primary-nucleation.zip")),
-        abspath(join(HOME, ".tmp", "primary-nucleation.zip")),
-        abspath(join(HOME, ".tmp"))
+        abspath(join(HOME, ".tmp", "download", "primary-nucleation.zip")),
+        abspath(join(HOME, ".tmp", "download", "primary-nucleation.zip")),
+        abspath(join(HOME, ".tmp", "unzipped"))
     )
 
     _copy_dir(abspath(join(HOME, "auth")), abspath(join(HOME, ".tmp", "auth")))
