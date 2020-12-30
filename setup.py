@@ -3,9 +3,15 @@ import sys
 import pathlib
 import configparser
 from pathlib import Path
+from os.path import join, basename, abspath, isdir, isfile, dirname
 from setuptools import setup, find_packages
 
 assert sys.version_info >= (3, 6, 0)
+
+with open(os.path.dirname(__file__) + "/src/framework/loader.py") as f:
+    code = compile(f.read(), "loader.py", "exec")
+    exec(code)
+
 _path = str(pathlib.Path(__file__).parent.absolute())
 _src = "src"
 _config = "/setup.cfg"
@@ -27,20 +33,15 @@ setup_stub_name = package_name
 setup_full_name = repo_name
 setup_description = setup_full_name.replace("-", " ")
 
-
-def setup_links():
-    _link = package_link + "/"
-    Path(_path + "/" + _link).mkdir(parents=True, exist_ok=True)
-    if not os.path.islink(_path + "/" + _link + package_name):
-        os.symlink(os.path.join(_path, _src), _path + "/" + _link + "/" + package_name)
-
-
-setup_links()
+setup_links(package_name)
 
 pins = []
 
 reqs = [
     "setuptools",
+]
+
+extras = [
     "utilities-package-pinion@git+https://gitlab.com/terminallabs/utilitiespackage/utilities-package-pinion.git",
     "utilities-package@git+https://gitlab.com/terminallabs/utilitiespackage/utilities-package.git",
 ]
@@ -57,7 +58,7 @@ setup(
     packages=find_packages(where=package_link),
     zip_safe=False,
     include_package_data=True,
-    install_requires=pins + reqs,
+    install_requires=pins + reqs + smart_reqs(extras, package_name),
     entry_points="""
         [console_scripts]
     """
