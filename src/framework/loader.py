@@ -57,8 +57,10 @@ def smart_reqs(repos, package_name):
 
     if _get_deploy_style() == "repo":
         local_repos = os.listdir(_join(_path, ".."))
-        local_repos.remove(".DS_Store")
-        local_repos.remove(package_name)
+        if ".DS_Store" in local_repos:
+            local_repos.remove(".DS_Store")
+        if package_name in local_repos:
+            local_repos.remove(package_name)
 
         for repo in local_repos:
             repos = [_ for _ in repos if not _.endswith(repo + ".git")]
