@@ -2,7 +2,7 @@ import os
 import site
 import tempfile
 
-with open(os.path.dirname(__file__) + "/loader.py") as f:
+with open(os.path.dirname(__file__) + "/lib.py") as f:
     code = compile(f.read(), "loader.py", "exec")
     exec(code)
 

@@ -4,8 +4,8 @@ import click
 import pytest
 import requests
 
-with open(os.path.dirname(__file__) + "/framework/loader.py") as f:
-    code = compile(f.read(), "loader.py", "exec")
+with open(os.path.dirname(__file__) + "/framework/lib.py") as f:
+    code = compile(f.read(), "lib.py", "exec")
     exec(code)
 
 _pgk_name = _get_pgk_name()

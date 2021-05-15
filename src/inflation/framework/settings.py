@@ -1,7 +1,7 @@
 import os
 import configparser
 
-with open(os.path.dirname(__file__) + "/loader.py") as f:
+with open(os.path.dirname(__file__) + "/lib.py") as f:
     code = compile(f.read(), "loader.py", "exec")
     exec(code)
 

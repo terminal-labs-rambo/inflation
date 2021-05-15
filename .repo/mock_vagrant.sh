@@ -1,6 +1,6 @@
-useradd -m vagrant
-mkdir -p /home/vagrant
+adduser --disabled-password --gecos "" vagrant
 touch /home/vagrant/.bashrc
+usermod -aG sudo vagrant
 
 mkdir -p /vagrant
 cp -a . /vagrant/

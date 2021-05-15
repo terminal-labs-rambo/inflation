@@ -1,5 +1,8 @@
 import pathlib
+import configparser
 from os.path import join, basename, abspath, isfile, dirname
+
+config = configparser.ConfigParser()
 
 package_link = ".tmp/symlink"
 _path = str(pathlib.Path(__file__).parent.absolute())
@@ -19,13 +22,15 @@ def _backout(path):
 def _import_fun(mod, func):
     return getattr(__import__(mod, fromlist=[func]), func)
 
-def _get_pgk_dir():
+def _get_pgk_name():
     currentpath = _cwd()
     i = len(currentpath.split("/"))
     while i > 0:
         currentpath = _join(currentpath, "..")
         if isfile(currentpath + "/setup.py"):
-            return currentpath
+            config.read(currentpath + "/setup.cfg")
+            NAME = config["metadata"]["name"]
+            return NAME
             i = -1
         i = i - 1
 

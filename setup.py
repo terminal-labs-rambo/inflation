@@ -8,19 +8,17 @@ from setuptools import setup, find_packages
 
 assert sys.version_info >= (3, 6, 0)
 
-with open(os.path.dirname(__file__) + "/src/framework/loader.py") as f:
+with open(os.path.dirname(__file__) + "/loader.py") as f:
     code = compile(f.read(), "loader.py", "exec")
+    exec(code)
+
+with open(os.path.dirname(__file__) + "/local.py") as f:
+    code = compile(f.read(), "local.py", "exec")
     exec(code)
 
 _path = str(pathlib.Path(__file__).parent.absolute())
 _src = "src"
 _config = "/setup.cfg"
-
-setup_author = ("Terminal Labs",)
-setup_author_email = ("solutions@terminallabs.com",)
-setup_license = ("see LICENSE file",)
-setup_url = "https://github.com/terminal-labs/inflation"
-package_link = ".tmp/symlink"
 
 config = configparser.ConfigParser()
 config.read(_path + _config)
@@ -33,18 +31,7 @@ setup_stub_name = package_name
 setup_full_name = repo_name
 setup_description = setup_full_name.replace("-", " ")
 
-setup_links(package_name)
-
-pins = []
-
-reqs = [
-    "setuptools",
-]
-
-extras = [
-    "utilities-package-pinion@git+https://gitlab.com/terminallabs/utilitiespackage/utilities-package-pinion.git",
-    "utilities-package@git+https://gitlab.com/terminallabs/utilitiespackage/utilities-package.git",
-]
+#setup_links(package_name)
 
 setup(
     name=package_name,
