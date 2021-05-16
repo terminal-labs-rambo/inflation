@@ -7,6 +7,7 @@ reqs = [
 extras = [
     "utilities-package-pinion@git+https://gitlab.com/terminallabs/utilitiespackage/utilities-package-pinion.git",
     "utilities-package@git+https://gitlab.com/terminallabs/utilitiespackage/utilities-package.git",
+    "rambo-vagrant@git+https://github.com/terminal-labs/rambo.git",
 ]
 
 setup_author = ("Terminal Labs",)
