@@ -4,8 +4,8 @@ from os.path import dirname, realpath, abspath, join, exists
 
 from rambo.app import up, destroy, ssh
 
-with open(os.path.dirname(__file__) + "/framework/loader.py") as f:
-    code = compile(f.read(), "loader.py", "exec")
+with open(os.path.dirname(__file__) + "/framework/lib.py") as f:
+    code = compile(f.read(), "lib.py", "exec")
     exec(code)
 
 _pgk_name = _get_pgk_name()

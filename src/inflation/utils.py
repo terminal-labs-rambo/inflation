@@ -6,8 +6,8 @@ from os.path import isdir, dirname, realpath, abspath, join, exists
 from zipfile import ZipFile
 from configparser import ConfigParser
 
-with open(os.path.dirname(__file__) + "/framework/loader.py") as f:
-    code = compile(f.read(), "loader.py", "exec")
+with open(os.path.dirname(__file__) + "/framework/lib.py") as f:
+    code = compile(f.read(), "lib.py", "exec")
     exec(code)
 
 def _delete_dir(directory):
