@@ -1,4 +1,5 @@
 APPNAME=inflation
+TYPE=python
 PYTHONVERSION="3.6.9"
 EXTRAS="none"
 
@@ -13,12 +14,11 @@ download_bash_environment_manager:
 	fi
 
 conda: download_bash_environment_manager
-	@sudo bash .tmp/bash-environment-manager-master/namespaces/types/python/assemble.sh $(APPNAME) $(SUDO_USER) conda
-	@sudo bash .tmp/bash-environment-manager-master/namespaces/emitters/python/emit_activate.sh $(APPNAME) $(SUDO_USER) conda
+	@sudo bash .tmp/bash-environment-manager-master/configuration/namespaces/types/$(TYPE)/assemble.sh $(APPNAME) $(SUDO_USER) conda $(TYPE)
 
 vagrant.conda: download_bash_environment_manager
 	@if test ! -f "Vagrantfile";then \
 		wget https://raw.githubusercontent.com/terminal-labs/shelf/master/vagrant/Vagrantfile; \
 		chown $(SUDO_USER) Vagrantfile; \
 	fi
-	@sudo bash .tmp/bash-environment-manager-master/namespaces/types/python/assemble.sh $(APPNAME) $(SUDO_USER) vagrant-conda
+	@sudo bash .tmp/bash-environment-manager-master/configuration/namespaces/types/$(TYPE)/assemble.sh $(APPNAME) $(SUDO_USER) vagrant-conda $(TYPE)
