@@ -20,7 +20,7 @@ conda: download_bash_environment_manager
 vagrant.conda: NAMESPACE="vagrant-conda"
 vagrant.conda: download_bash_environment_manager
 	@if test ! -f "Vagrantfile";then \
-		wget https://raw.githubusercontent.com/terminal-labs/bash-environment-shelf/master/vagrant/Vagrantfile; \
+		wget https://raw.githubusercontent.com/terminal-labs/bash-environment-shelf/master/vagrantfiles/Vagrantfile; \
 		chown $(SUDO_USER) Vagrantfile; \
 	fi
 	@sudo bash .tmp/bash-environment-manager-master/configuration/namespaces/types/$(TYPE)/assemble.sh $(APPNAME) $(SUDO_USER) $(NAMESPACE) $(TYPE) $(PYTHONVERSION)
