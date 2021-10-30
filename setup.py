@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 import pathlib
 import zipfile
 import configparser
@@ -13,34 +14,26 @@ from setuptools import setup, find_packages
 
 assert sys.version_info >= (3, 6, 0)
 
-bash_repos = [
-    {
-    "url":"https://github.com/terminal-labs/bash-environment-shelf/archive/refs/heads/master.zip",
-    "filename":".tmp/download/bash-environment-shelf.zip"
-    }
-]
+def create_dirs(dirs):
+    for dir in dirs:
+        if not os.path.exists(dir):
+            os.mkdir(dir)
 
-with open(os.path.dirname(__file__) + "/loader.py") as f:
-    code = compile(f.read(), "loader.py", "exec")
-    exec(code)
+def dl_bash_repos(repos, _tmp):
+    for repo in repos:
+        urllib.request.urlretrieve(repo["url"], repo["filename"])
+        with zipfile.ZipFile(repo["filename"], "r") as zip_ref:
+            zip_ref.extractall(_tmp)
 
-with open(os.path.dirname(__file__) + "/local.py") as f:
-    code = compile(f.read(), "local.py", "exec")
-    exec(code)
-
-if not os.path.exists(".tmp"):
-    os.mkdir(".tmp")
-if not os.path.exists(".tmp/download"):
-    os.mkdir(".tmp/download")
-
-urllib.request.urlretrieve(bash_repos[0]["url"], bash_repos[0]["filename"])
-with zipfile.ZipFile(".tmp/download/bash-environment-shelf.zip", "r") as zip_ref:
-    zip_ref.extractall(".tmp")
+def compile_python(name, file, _src):
+    with open(os.path.dirname(__file__) + "/" + _src + "/" + name + "/" + file) as f:
+        code = compile(f.read(), file, "exec")
+        return code
 
 _path = str(pathlib.Path(__file__).parent.absolute())
 _src = "src"
 _config = "/setup.cfg"
-
+_tmp = ".tmp"
 
 config = configparser.ConfigParser()
 config.read(_path + _config)
@@ -53,7 +46,29 @@ setup_stub_name = package_name
 setup_full_name = repo_name
 setup_description = setup_full_name.replace("-", " ")
 
-#setup_links(package_name)
+dirs = [".tmp", ".tmp/download", ".tmp/logs"]
+create_dirs(dirs)
+
+repos = [
+    {
+    "url":"https://github.com/terminal-labs/bash-environment-shelf/archive/refs/heads/master.zip",
+    "filename":".tmp/download/bash-environment-shelf.zip"
+    }
+]
+dl_bash_repos(repos, _tmp)
+
+_path_to_framework = _src + "/" + name + "/" + "framework"
+if os.path.exists(_path_to_framework):
+    shutil.rmtree(_path_to_framework)
+
+if not os.path.exists(_path_to_framework):
+    shutil.copytree(".tmp/bash-environment-shelf-master/codepacks/framework", _path_to_framework)
+
+exec(compile_python(name + "/" + "framework", "loader.py", _src))
+exec(compile_python(name, "local.py", _src))
+
+#f = open(".tmp/logs/setup", "a")
+#f.close()
 
 setup(
     name=package_name,
